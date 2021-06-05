@@ -2,7 +2,7 @@ const u = require('../services/user');
 
 const RenderProfile = async (req, res) => {
     const { email } = req.body.user;
-    const user = u.FetchUserByEmail('email');
+    const user = u.FetchUserByEmail(email);
     if (user) {
         res.render('profile', { user });
     } else {
@@ -32,7 +32,10 @@ const RenderUser = async (req, res) => {
 
 
 const Logout = async (req, res) => {
-
+    res.cookie(process.env.COOKIE_NAME, '', {
+        maxAge: 0
+    });
+    res.redirect('/');
 };
 
 const Edit = async (req, res) => {
