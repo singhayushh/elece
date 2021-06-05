@@ -11,6 +11,7 @@ const RenderTTEdit = async (req, res) => {
 };
 
 const Create = async (req, res) => {
+    console.log('hi');
     const tt = await t.Create(req.body);
     if (tt != 'err') {
         res.redirect(`/`);

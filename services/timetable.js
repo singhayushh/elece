@@ -11,7 +11,7 @@ const Create = async (ttBody) => {
 
 const Edit = async (ttBody) => {
     try {
-        const tt = Timetable.findOneAndUpdate({ code: ttBody.code }, { ttBody });
+        const tt = Timetable.findOneAndUpdate({ code: ttBody.code }, { schedule: ttBody.schedule });
         return tt;
     } catch (error) {
         return error.message;

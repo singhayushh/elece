@@ -64,7 +64,7 @@ const Login = async (req, res) => {
 
     req.body.user.user_id = result._id;
 
-    const token = jwt.sign(req.body.user, process.env.JWT_TOKEN);
+    const token = jwt.sign(req.body.user, process.env.JWT_SECRET);
     res.cookie(process.env.COOKIE_NAME, token, {
         maxAge: 100*60*60*1000,
         httpOnly: true,
@@ -73,8 +73,9 @@ const Login = async (req, res) => {
 
     if (!result.dob) {
         res.redirect('/profile/edit?status=welcome');
+    } else {
+        res.redirect('/');   
     }
-    res.redirect('/');
 };
 
 module.exports = {

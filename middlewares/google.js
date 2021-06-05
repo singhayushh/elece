@@ -1,5 +1,4 @@
 const axios = require('axios');
-const jwt = require('jsonwebtoken');
 const querystring = require('querystring');
 
 const client_id = process.env.CLIENT_ID;

@@ -8,7 +8,7 @@ const Create = async (userBody) => {
             user = new User({
                 name: userBody.user.name,
                 email: userBody.user.email,
-                username: userBody.username || userBody.email.substring(0, userBody.email.indexOf("@")),
+                username: userBody.username || userBody.user.email.substring(0, userBody.user.email.indexOf("@")),
                 picture: userBody.user.picture,
                 isAdmin: userBody.user.isAdmin,
             });
@@ -18,6 +18,7 @@ const Create = async (userBody) => {
         }
         return user;
     } catch (error) {
+        console.log(error);
         return error.message;
     }
 }

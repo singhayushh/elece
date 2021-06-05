@@ -14,6 +14,7 @@ const auth = (role) => {
             req.body.user = decoded;
             next();
         } catch (error) {
+            console.log(error);
             res.redirect('index?status=0');
         }
     };

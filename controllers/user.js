@@ -12,7 +12,7 @@ const RenderProfile = async (req, res) => {
 
 const RenderEdit = async (req, res) => {
     const { email } = req.body.user;
-    const user = u.FetchUserByEmail('email');
+    const user = u.FetchUserByEmail(email);
     if (user) {
         res.render('editProfile', { user });
     } else {
