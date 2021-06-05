@@ -3,21 +3,14 @@ const User = require('../models/user');
 const Create = async (userBody) => {
     try {
         let user;
-        user = await User.findOne({ email: userBody.email });
+        user = await User.findOne({ email: userBody.user.email });
         if (!user) {
             user = new User({
-                name: userBody.name,
-                email: userBody.email,
+                name: userBody.user.name,
+                email: userBody.user.email,
                 username: userBody.username || userBody.email.substring(0, userBody.email.indexOf("@")),
-                picture: userBody.picture,
-                dob: userBody.dob,
-                interests: userBody.interests,
-                bio: userBody.bio,
-                description: userBody.description,
-                instagram: userBody.instagram,
-                facebook: userBody.facebook,
-                twitter: userBody.twitter,
-                linkedin: userBody.linkedin
+                picture: userBody.user.picture,
+                isAdmin: userBody.user.isAdmin,
             });
             await user.save();
         } else if (user.status == 'banned') {
@@ -31,7 +24,7 @@ const Create = async (userBody) => {
 
 const Edit = async (userBody) => {
     try {
-        await User.updateOne({ email: userBody.email }, { userBody });
+        await User.updateOne({ email: userBody.user.email }, { userBody });
         return 'success';
     } catch (error) {
         return error.message;
@@ -47,7 +40,7 @@ const Delete = async (user_id) => {
     }
 };
 
-const FetchAllUsers = async () => {
+const FetchAll = async () => {
     try {
         const users = await User.find();
         return users;
@@ -77,7 +70,7 @@ const FetchUserByUsername = async (username) => {
 module.exports = {
     Create,
     Edit,
-    FetchAllUsers,
+    FetchAll,
     FetchUserByEmail,
     FetchUserByUsername,
     Delete,

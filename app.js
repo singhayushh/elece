@@ -31,12 +31,14 @@ app.use(express.static(__dirname + '/views'));
 app.set('view engine', 'ejs');
 
 const main = require('./routes/main');
-// const notice = require('./routes/notice');
-// const user = require('./routes/user');
+const notice = require('./routes/notice');
+const timetable = require('./routes/timetable');
+const user = require('./routes/user');
 
 app.use('/', main);
-// app.use('/notice', notice);
-// app.use('/profile', user);
+app.use('/notice', notice);
+app.use('/profile', user);
+app.use('/timetable', timetable);
 
 app.get('*', (_req, res) => {
     res.render('404');

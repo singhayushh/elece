@@ -5,8 +5,6 @@ const querystring = require('querystring');
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
 const root_url = process.env.ROOT_URL;
-const jwt_secret = process.env.JWT_SECRET;
-const cookie_name = process.env.COOKIE_NAME;
 
 const getTokens = (code) => {
     const url = 'https://oauth2.googleapis.com/token';
@@ -52,25 +50,19 @@ const googleAuth = async (req, res, next) => {
         user.isAdmin = true;
     }
 
-    const token = jwt.sign(user, jwt_secret);
-
-    res.cookie(cookie_name, token, {
-        maxAge: 900000,
-        httpOnly: true,
-        secure: false,
-    });
-
-    // Sample response: 
-    // {
-    //     id: '109440430898308780646',
-    //     email: 'coding.ayush@gmail.com',
-    //     verified_email: true,
-    //     name: 'Ayush Singh',
-    //     given_name: 'Ayush',
-    //     family_name: 'Singh',
-    //     picture: 'https://lh3.googleusercontent.com/a-/AOh14GgKBfrbozqd_X_kA3GRmPdbXadJ9WEyYJhTil-Y9w=s96-c',
-    //     locale: 'en'
-    //   }
+    /* 
+        Sample response: 
+        {
+            id: '109440430898308780646',
+            email: 'coding.ayush@gmail.com',
+            verified_email: true,
+            name: 'Ayush Singh',
+            given_name: 'Ayush',
+            family_name: 'Singh',
+            picture: 'https://lh3.googleusercontent.com/a-/AOh14GgKBfrbozqd_X_kA3GRmPdbXadJ9WEyYJhTil-Y9w=s96-c',
+            locale: 'en'
+         }
+    */
 
     req.body.user = user;
 

@@ -1,5 +1,11 @@
-const root_url = process.env.ROOT_URL;
 const querystring = require('querystring');
+const jwt = require('jsonwebtoken');
+
+const n = require('../services/notice');
+const u = require('../services/user');
+const { FetchTimetable } = require('../services/timetable');
+
+const root_url = process.env.ROOT_URL;
 
 const AuthURL = () => {
     const rootUrl = "https://accounts.google.com/o/oauth2/v2/auth";
@@ -19,7 +25,15 @@ const AuthURL = () => {
 };
 
 const RenderHome = async (_req, res) => {
-    res.render('home', {});
+    
+    let notices = await n.FetchAll();
+    notices = notices.slice(0, Math.max(3, notices.length));
+
+    let today = (new Date()).getDay();
+    const tt = await FetchTimetable('class-4');
+
+    res.render('home', { timetable: tt.schedule[today], notices: notices });
+
 };
 
 const RenderLogin = async (_req, res) => {
@@ -27,19 +41,40 @@ const RenderLogin = async (_req, res) => {
 };
 
 const RenderNotices = async (_req, res) => {
-    res.render('notices', {});
+    let notices = await n.FetchAll();
+    res.render('notices', { notices });
 };
 
 const RenderPeople = async (_req, res) => {
-    res.render('people', {});
+    let users = u.FetchAll();
+    res.render('people', { users });
 };
 
 const RenderTT = async (_req, res) => {
-    res.render('timetable', {});
+    const tt = FetchTimetable();
+    res.render('timetable', { timetable: tt.schedule });
 };
 
-const Login = async (_req, res) => {
-    res.render('home');
+const Login = async (req, res) => {
+    let result = await u.Create(req.body);
+    
+    if (result == 'banned') {
+        res.redirect('/?status=banned');
+    }
+
+    req.body.user.user_id = result._id;
+
+    const token = jwt.sign(req.body.user, process.env.JWT_TOKEN);
+    res.cookie(process.env.COOKIE_NAME, token, {
+        maxAge: 100*60*60*1000,
+        httpOnly: true,
+        secure: false,
+    });
+
+    if (!result.dob) {
+        res.redirect('/profile/edit?status=welcome');
+    }
+    res.redirect('/');
 };
 
 module.exports = {

@@ -10,7 +10,7 @@ const Create = async (noticeBody) => {
                 title: noticeBody.title,
                 short: noticeBody.short,
                 long: noticeBody.long,
-                addedBy: noticeBody.user_id,
+                addedBy: noticeBody.user.user_id,
             });
             await notice.save();
         }
