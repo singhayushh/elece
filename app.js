@@ -1,8 +1,8 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
-require("dotenv").config();
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+require('dotenv').config();
 
 const port = Number(process.env.PORT);
 const uri = String(process.env.MONGO_URI);
@@ -16,9 +16,9 @@ const connectOptions = {
 mongoose
     .connect(uri, connectOptions)
     .then()
-    .catch((err) => console.log("Error:" + err));
-mongoose.connection.once("open", () =>
-    console.log("Connected to MongoDB successfully...")
+    .catch((err) => console.log('Error:' + err));
+mongoose.connection.once('open', () =>
+    console.log('Connected to MongoDB successfully...')
 );
 
 const app = express();
@@ -27,19 +27,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(express.static(__dirname + "/views"));
-app.set("view engine", "ejs");
+app.use(express.static(__dirname + '/views'));
+app.set('view engine', 'ejs');
 
-const main = require("./routes/main");
-const notice = require("./routes/notice");
-const user = require("./routes/user");
+const main = require('./routes/main');
+// const notice = require('./routes/notice');
+// const user = require('./routes/user');
 
-app.use("/", main);
-app.use("/notice", notice);
-app.use("/profile", user);
+app.use('/', main);
+// app.use('/notice', notice);
+// app.use('/profile', user);
 
-app.get("*", (_req, res) => {
-    res.render("404");
+app.get('*', (_req, res) => {
+    res.render('404');
 });
 
 app.listen(port, () => console.log(`Web server started at port: ${port}`));
