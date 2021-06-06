@@ -42,19 +42,19 @@ let userSchema = new Schema(
         },
         instagram: {
             type: String,
-            default: null
+            default: '#',
         },
         facebook: {
             type: String,
-            default: null
+            default: '#',
         },
         twitter: {
             type: String,
-            default: null
+            default: '#',
         },
         linkedin: {
             type: String,
-            default: null,
+            default: '#',
         },
         cover: {
             type: String,

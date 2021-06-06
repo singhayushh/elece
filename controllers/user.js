@@ -2,7 +2,7 @@ const u = require('../services/user');
 
 const RenderProfile = async (req, res) => {
     const { email } = req.body.user;
-    const user = u.FetchUserByEmail(email);
+    const user = await u.FetchUserByEmail(email);
     if (user) {
         res.render('profile', { user });
     } else {
@@ -12,7 +12,7 @@ const RenderProfile = async (req, res) => {
 
 const RenderEdit = async (req, res) => {
     const { email } = req.body.user;
-    const user = u.FetchUserByEmail(email);
+    const user = await u.FetchUserByEmail(email);
     if (user) {
         res.render('editProfile', { user });
     } else {
@@ -22,7 +22,7 @@ const RenderEdit = async (req, res) => {
 
 const RenderUser = async (req, res) => {
     const { username } = req.params;
-    const user = u.FetchUserByUsername(username);
+    const user = await u.FetchUserByUsername(username);
     if (user) {
         res.render('profile', { user });
     } else {
@@ -39,6 +39,7 @@ const Logout = async (req, res) => {
 };
 
 const Edit = async (req, res) => {
+    req.body.interests = req.body.interests.split(',');
     const result = await u.Edit(req.body);
     if (result == 'success') {
         res.redirect('/profile');

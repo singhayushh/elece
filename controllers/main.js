@@ -26,13 +26,12 @@ const AuthURL = () => {
 
 const RenderHome = async (_req, res) => {
     
-    let notices = await n.FetchAll();
-    notices = notices.slice(0, Math.max(3, notices.length));
-
     let today = (new Date()).getDay();
     const tt = await FetchTimetable('class-4');
 
-    res.render('home', { timetable: tt.schedule[today], notices: notices });
+    const data = [...(tt.schedule[today].data), ...(tt.schedule[(today + 1) % 7].data)];
+
+    res.render('home', { timetable: data});
 
 };
 
@@ -74,7 +73,7 @@ const Login = async (req, res) => {
     if (!result.dob) {
         res.redirect('/profile/edit?status=welcome');
     } else {
-        res.redirect('/');   
+        res.redirect('/profile');   
     }
 };
 

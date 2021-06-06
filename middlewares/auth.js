@@ -8,14 +8,13 @@ const auth = (role) => {
             if (role == 'admin') {
                 if (!decoded.isAdmin) {
                     // Not admin
-                    res.redirect('index?status=1');
+                    res.redirect('/');
                 }
             }
             req.body.user = decoded;
             next();
         } catch (error) {
-            console.log(error);
-            res.redirect('index?status=0');
+            res.redirect('/login');
         }
     };
 }

@@ -25,7 +25,17 @@ const Create = async (userBody) => {
 
 const Edit = async (userBody) => {
     try {
-        await User.updateOne({ email: userBody.user.email }, { userBody });
+        await User.updateOne({ email: userBody.user.email }, { 
+            username: userBody.username,
+            dob: userBody.dob,
+            interests: userBody.interests,
+            bio: userBody.bio,
+            description: userBody.description,
+            instagram: userBody.instagram,
+            facebook: userBody.facebook,
+            twitter: userBody.twitter,
+            linkedin: userBody.linkedin
+         });
         return 'success';
     } catch (error) {
         return error.message;
