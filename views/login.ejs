@@ -1,1 +1,16 @@
-<a href="<%= url %>" target="_blank">Link</a>
+<%- include('partials/header.ejs') %>
+
+    <section id="login">
+        <div class="container">
+            <h1>Join</h1>
+            <div class="flex-column">
+                <img src="/illustrations/english.svg" alt="sign in">
+                <a href="<%= url %>" class="login-with-google-btn">
+                    <div class="google-logo"></div>
+                    Sign in with Google
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer.ejs') %>

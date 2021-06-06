@@ -1,0 +1,65 @@
+<%- include('partials/header.ejs') %>
+
+<section id="profile">
+
+    <div class="container">
+        <h1>Profile</h1>
+        <div class="wrapper span-1-of-1 flex-wrap">
+            <div class="profile-img">
+                <img src="<%= user.picture %>" alt="">
+            </div>
+            <div class="profile-bio">
+                <h2>
+                    <%= user.name %>
+                </h2>
+                <p><%= user.bio %></p>
+                <a class="btn" href="/profile/edit">Edit Profile</a>
+            </div>
+        </div>
+        <div class="w-100">
+            <ul>
+                <li class="icon">
+                    <a href="<%= user.facebook %>" target="_blank"><i data-feather="facebook"></i></a>
+                </li>
+                <li class="icon">
+                    <a href="<%= user.instagram %>" target="_blank"><i data-feather="instagram"></i></a>
+                </li>
+                <li class="icon">
+                    <a href="<%= user.linkedin %>" target="_blank"><i data-feather="linkedin"></i></a>
+                </li>
+                <li class="icon">
+                    <a href="<%= user.twitter %>" target="_blank"><i data-feather="twitter"></i></a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="profile-wrapper">
+            <div class="form-item row">
+                <h3>Username</h3>
+                <div id="input"><%= user.username %></div>
+            </div>
+            <div class="form-item row">
+                <h3>About</h3>
+                <div id="input"><%= user.description %></div>
+            </div>
+            <div class="form-item row">
+                <h3>Interests</h3>
+                <% for (var i = 0; i < user.interests.length; i++) { %>
+
+                    <% if (i % 4 == 0) { %>
+                        <div class="tag red-icon"><%= user.interests[i] %></div>
+                    <% } else if (i % 3 == 1) { %>
+                        <div class="tag blue-icon"><%= user.interests[i] %></div>
+                    <% } else if (i % 4 == 2) { %>
+                        <div class="tag green-icon"><%= user.interests[i] %></div>
+                    <% } else { %>
+                        <div class="tag yellow-icon"><%= user.interests[i] %></div>
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<%- include('partials/footer.ejs') %>

@@ -1,0 +1,61 @@
+<%- include('partials/header.ejs') %>
+
+<section id="profile">
+
+    <div class="container">
+        <h1>Profile</h1>
+        <div class="wrapper span-1-of-1 flex-wrap" style="align-items: center !important;">
+            <div class="profile-img">
+                <img src="<%= user.picture %>" alt="">
+            </div>
+            <div class="profile-bio">
+                <h2>
+                    <%= user.name %>
+                </h2>
+            </div>
+        </div>
+
+        <form action="/profile/edit" class="profile-wrapper" method="POST">
+            <div class="form-item row">
+                <label for="username">Username</label>
+                <input type="text" id="input" value="<%= user.username %>" name="username" placeholder="Add a one-word username for yourself">
+            </div>
+            <div class="form-item row">
+                <label for="dob">Date of birth</label>
+                <input type="date" id="input" value="<%= user.dob %>" name="dob" required>
+            </div>
+            <div class="form-item row">
+                <label for="linkedin">LinkedIn Profile</label>
+                <input type="text" id="input" value="<%= user.linkedin %>" name="linkedin" placeholder="Link to your profile">
+            </div>
+            <div class="form-item row txt">
+                <label for="bio">Bio</label>
+                <textarea name="bio" placeholder="Add a short bio of under 15 words."><%= user.bio %></textarea>
+            </div>
+            <div class="form-item row txt">
+                <label for="description">About</label>
+                <textarea name="description" placeholder="Tell us more about you"><%= user.description %></textarea>
+            </div>
+            <div class="form-item row txt">
+                <label for="interests">Interests</label>
+                <input type="text" name="interests" value="<%= user.interests %>" placeholder="Separate interests by comma">
+            </div>
+            <div class="form-item row">
+                <label for="instagram">Instagram Profile</label>
+                <input type="text" id="input" value="<%= user.instagram %>" name="instagram" placeholder="Link to your profile">
+            </div>
+            <div class="form-item row">
+                <label for="facebook">Facebook Profile</label>
+                <input type="text" id="input" value="<%= user.facebook %>" name="facebook" placeholder="Link to your profile">
+            </div>
+            <div class="form-item row">
+                <label for="twitter">Twitter Handle</label>
+                <input type="text" id="input" value="<%= user.twitter %>" name="twitter" placeholder="Link to your profile">
+            </div>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
+</section>
+
+<%- include('partials/footer.ejs') %>

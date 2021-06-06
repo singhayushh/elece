@@ -1,5 +1,83 @@
-<%= notices %>
+<%- include('partials/header.ejs') %>
 
-<h1>Break</h1>
+    <section>
+        <div class="container">
+            <h1>Grace</h1>
+            <div class="flex-row">
+                <div class="span-1-of-3 row">
+                    <img src="/illustrations/class.svg" alt="assignments">
+                    <h3>Activities</h3>
+                    <p>Lead and participate in various departmental events and activities.</p>
+                </div>
+                <div class="span-1-of-3 row">
+                    <img src="/illustrations/computer.svg" alt="assignments">
+                    <h3>Assignments</h3>
+                    <p>Stay updated with latest assignments and keep track of all the deadlines.</p>
+                </div>
+                <div class="span-1-of-3 row" style="margin-right: 0px;">
+                    <img src="/illustrations/math.svg" alt="assignments">
+                    <h3>Classes</h3>
+                    <p>Stay notified about all the upcoming classes and practicals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <h2>Upcoming Classes</h2>
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <th width="50%">
+                            </td>
+                        <th width="25%">
+                            </td>
+                        <th width="25%">
+                            </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (!timetable.length) { %>
+                        <div class="row"><strong>Yuhuu! No classes today!</strong></div>
+                    <% } %>
+                    <% for (var i = 0; i < timetable.length; i++) { %>
+                        <tr>
+                            <% if (i == 0) { %> 
+                                <td class="tr-start-left red-icon">
+                                    <i data-feather="disc"></i> <%= timetable[i].subject %>
+                                </td>
+                                <td>
+                                    <%= timetable[i].range %>
+                                </td>
+                                <td class="tr-start-right">
+                                    <a href="https://meet.google.com/<%= timetable[i].link %>"><%= timetable[i].link %></a>
+                                </td>
+                            <% } else if (i == timetable.length - 1) { %>
+                                <td class="tr-end-left green-icon">
+                                    <i data-feather="disc"></i> <%= timetable[i].subject %>
+                                </td>
+                                <td>
+                                    <%= timetable[i].range %>
+                                </td>
+                                <td class="tr-end-right">
+                                    <a href="https://meet.google.com/<%= timetable[i].link %>"><%= timetable[i].link %></a>
+                                </td>
+                            <% } else { %>
+                                <td class="yellow-icon">
+                                    <i data-feather="disc"></i> <%= timetable[i].subject %>
+                                </td>
+                                <td>
+                                    <%= timetable[i].range %>
+                                </td>
+                                <td>
+                                    <a href="https://meet.google.com/<%= timetable[i].link %>"><%= timetable[i].link %></a>
+                                </td>
+                            <% } %>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-<%= timetable %>
+    <%- include('partials/footer.ejs') %>
