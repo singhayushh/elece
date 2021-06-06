@@ -1,1 +1,64 @@
-<%= notices %>
+<%- include('partials/header.ejs') %>
+
+<section>
+    <div class="container">
+        <h2>Notice and Announcements</h2>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th width="40%">
+                        Title
+                    </th>
+                    <th width="40%">
+                        Description
+                    </th>
+                    <th width="20%">
+                        Added By
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (!notices.length) { %>
+                    <div class="row"><strong>Yuhuu! No notices posted!</strong></div>
+                <% } %>
+                <% for (var i = 0; i < notices.length; i++) { %>
+                    <tr>
+                        <% if (i == 0) { %> 
+                            <td class="tr-start-left">
+                                <i data-feather="disc"></i> <%= notices[i].title %>
+                            </td>
+                            <td>
+                                <%= notices[i].short %>
+                            </td>
+                            <td class="tr-start-right">
+                                <a href="/profile/<%= notices[i].addedBy.username %>"><%= notices[i].addedBy.username %></a>
+                            </td>
+                        <% } else if (i == notices.length - 1) { %>
+                            <td class="tr-end-left">
+                                <i data-feather="disc"></i> <%= notices[i].title %>
+                            </td>
+                            <td>
+                                <%= notices[i].short %>
+                            </td>
+                            <td class="tr-end-right">
+                                <a href="/profile/<%= notices[i].addedBy.username %>"><%= notices[i].addedBy.username %></a>
+                            </td>
+                        <% } else { %>
+                            <td>
+                                <i data-feather="disc"></i> <%= notices[i].title %>
+                            </td>
+                            <td>
+                                <%= notices[i].short %>
+                            </td>
+                            <td>
+                                <a href="/profile/<%= notices[i].addedBy.username %>"><%= notices[i].addedBy.username %></a>
+                            </td>
+                        <% } %>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<%- include('partials/footer.ejs') %>

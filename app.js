@@ -26,6 +26,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.set('case sensitive routing', true);
 
 app.use(express.static(__dirname + '/views'));
 app.set('view engine', 'ejs');

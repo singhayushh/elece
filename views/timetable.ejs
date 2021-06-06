@@ -1,1 +1,59 @@
-<%= timetable %>
+<%- include('partials/header.ejs') %>
+
+<section id="timetable">
+    <div class="container">
+        <h2>Class Schedule</h2>
+        <% if (!timetable.length) { %>
+            <div class="row"><strong>Yuhuu! No classes today!</strong></div>
+        <% } %>
+        <% for (var i = 0; i < timetable.length; i++) { %>
+            <% if (i == 0) { %>
+                <h3>Sunday</h3>
+            <% } else if (i == 1) { %>
+                <h3>Monday</h3>
+            <% } else if (i == 2) { %>
+                <h3>Tuesday</h3>
+            <% } else if (i == 3) { %>
+                <h3>Wednesday</h3>
+            <% } else if (i == 4) { %>
+                <h3>Thursday</h3>
+            <% } else if (i == 5) { %>
+                <h3>Friday</h3>
+            <% } else if (i == 6) { %>
+                <h3>Saturday</h3>
+            <% } %>
+            <table width="100%">
+                <thead>
+                <tr>
+                    <th width="50%">
+                        </th>
+                    <th width="25%">
+                        </th>
+                    <th width="25%">
+                        </th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% if (!timetable[i].data.length) { %>
+                        <div class="row">--</div>
+                    <% } else { %>
+                    <% for (var j = 0; j < timetable[i].data.length; j++) { %>
+                        <tr>
+                            <td>
+                            <i data-feather="disc"></i> <%= timetable[i].data[j].subject %>
+                            </td>
+                            <td>
+                            <%= timetable[i].data[j].range %>
+                            </td>
+                            <td>
+                            <a href="https://meet.google.com/<%= timetable[i].data[j].link %>"><%= timetable[i].data[j].link %></a>
+                            </td>
+                        </tr>
+                    <% }} %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+</section>
+
+<%- include('partials/footer.ejs') %>

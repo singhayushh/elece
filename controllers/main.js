@@ -45,12 +45,12 @@ const RenderNotices = async (_req, res) => {
 };
 
 const RenderPeople = async (_req, res) => {
-    let users = u.FetchAll();
+    let users = await u.FetchAll();
     res.render('people', { users });
 };
 
 const RenderTT = async (_req, res) => {
-    const tt = FetchTimetable();
+    const tt = await FetchTimetable('class-4');
     res.render('timetable', { timetable: tt.schedule });
 };
 

@@ -1,1 +1,85 @@
-<%= users %>
+<%- include('partials/header.ejs') %>
+
+<section>
+    <div class="container">
+        <h2>People</h2>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th width="30%">
+                        Name
+                    </th>
+                    <th width="20%">
+                        Joined
+                    </th>
+                    <th width="30%">
+                        Username
+                    </th>
+                    <th width="20%">
+                        Birthday
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (!users.length) { %>
+                    <div class="row"><strong>No users registered yet!</strong></div>
+                <% } %>
+                <% for (var i = 0; i < users.length; i++) { %>
+                    <tr>
+                        <% if (i == 0) { %> 
+                            <td class="tr-start-left special">
+                                <div class="table-img">
+                                    <img src="<%= users[i].picture %>">
+                                </div>
+                                <%= users[i].name %>
+                            </td>
+                            <td>
+                                <%= new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' }).format(users[i].createdAt) %>
+                            </td>
+                            <td>
+                                <a href="/profile/<%= users[i].username %>"><%= users[i].username %></a>
+                            </td>
+                            <td class="tr-start-right">
+                                <%= new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' }).format(users[i].dob) %>
+                            </td>
+                        <% } else if (i == users.length - 1) { %>
+                            <td class="tr-end-left special">
+                                <div class="table-img">
+                                    <img src="<%= users[i].picture %>">
+                                </div>
+                                <%= users[i].name %>
+                            </td>
+                            <td>
+                                <%= new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' }).format(users[i].createdAt) %>
+                            </td>
+                            <td class="tr-end-right">
+                                <a href="/profile/<%= users[i].username %>"><%= users[i].username %></a>
+                            </td>
+                            <td class="tr-start-right">
+                                <%= new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' }).format(users[i].dob) %>
+                            </td>
+                        <% } else { %>
+                            <td class="special">
+                                <div class="table-img">
+                                    <img src="<%= users[i].picture %>">
+                                </div>
+                                <%= users[i].name %>
+                            </td>
+                            <td>
+                                <%= new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' }).format(users[i].createdAt) %>
+                            </td>
+                            <td class="tr-end-right">
+                                <a href="/profile/<%= users[i].username %>"><%= users[i].username %></a>
+                            </td>
+                            <td>
+                                <%= new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' }).format(users[i].dob) %>
+                            </td>
+                        <% } %>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<%- include('partials/footer.ejs') %>
