@@ -6,7 +6,7 @@ const RenderProfile = async (req, res) => {
     if (user) {
         res.render('profile', { user, pageTitle: `Elece | ${user.name}`, hideEdit: false });
     } else {
-        res.render('404');
+        res.render('404',{pageTitle:'Elece | 404'});
     }
 };
 
@@ -16,7 +16,7 @@ const RenderEdit = async (req, res) => {
     if (user) {
         res.render('editProfile', { user, pageTitle: 'Elece - Edit Profile' });
     } else {
-        res.render('404');
+        res.render('404',{pageTitle:'Elece | 404'});
     }
 };
 
@@ -26,7 +26,7 @@ const RenderUser = async (req, res) => {
     if (user) {
         res.render('profile', { user, pageTitle: `Elece | ${user.name}`, hideEdit: true });
     } else {
-        res.render('404');
+        res.render('404',{pageTitle:'Elece | 404'});
     }
 };
 
