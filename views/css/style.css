@@ -167,21 +167,36 @@ footer {
 /* Actual CSS starts here */
 
 nav {
+    bottom: 0;
+    width: 100%;
+    height: 5rem;
     z-index: 999;
     position: fixed;
-    width: 6rem;
-    height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     background-color: var(--bg-secondary);
-    padding: 1.25rem 0;
+}
+
+.logo {
+    display: none;
+}
+
+.menu {
+    height: 100%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.toggle-dark {
+    margin-right: 1rem;
 }
 
 .menu li {
     list-style: none;
-    margin-bottom: 1.25rem;
+    margin: 1rem;
 }
 
 .menu li,
@@ -235,9 +250,11 @@ nav {
 
 section {
     width: 100%;
+    padding-bottom: var(--padding-vertical);
 }
 
 .container {
+    overflow: auto;
     width: 100%;
     padding: var(--padding-vertical) var(--padding-horizontal);
 }

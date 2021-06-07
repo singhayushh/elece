@@ -2,8 +2,8 @@
 
     <section>
         <div class="container">
-            <h1>Grace</h1>
-            <div class="flex-row">
+            <h1><%= pageTitle %></h1>
+            <div class="flex-row sl">
                 <div class="span-1-of-3 row">
                     <img src="/illustrations/class.svg" alt="assignments">
                     <h3>Activities</h3>
@@ -24,7 +24,7 @@
     </section>
     <section>
         <div class="container">
-            <h2>Upcoming Classes</h2>
+            <h2>Classes Today</h2>
             <table width="100%">
                 <thead>
                     <tr>
@@ -43,7 +43,7 @@
                     <% for (var i = 0; i < timetable.length; i++) { %>
                         <tr>
                             <% if (i == 0) { %> 
-                                <td class="tr-start-left red-icon">
+                                <td class="tr-start-left">
                                     <i data-feather="disc"></i> <%= timetable[i].subject %>
                                 </td>
                                 <td>
@@ -53,7 +53,7 @@
                                     <a href="https://meet.google.com/<%= timetable[i].link %>"><%= timetable[i].link %></a>
                                 </td>
                             <% } else if (i == timetable.length - 1) { %>
-                                <td class="tr-end-left green-icon">
+                                <td class="tr-end-left ">
                                     <i data-feather="disc"></i> <%= timetable[i].subject %>
                                 </td>
                                 <td>
@@ -63,7 +63,7 @@
                                     <a href="https://meet.google.com/<%= timetable[i].link %>"><%= timetable[i].link %></a>
                                 </td>
                             <% } else { %>
-                                <td class="yellow-icon">
+                                <td class="">
                                     <i data-feather="disc"></i> <%= timetable[i].subject %>
                                 </td>
                                 <td>

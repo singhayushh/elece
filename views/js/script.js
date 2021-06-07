@@ -18,9 +18,22 @@ $(document).ready(function () {
     var ww = document.body.clientWidth;
     if (ww <= 890) {
         $('.menu').addClass('dropdown');
+        $('.sl').addClass('slick').removeClass('flex-row');
     } else if (ww > 890) {
         $('.menu').removeClass('dropdown');
+        $('.sl').removeClass('slick').addClass('flex-row');
     };
+
+    // Slick Carousel
+    $('.slick').slick({
+        acccessibility: false,
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        dots: false,
+        prevArrow: false,
+        nextArrow: false
+    });
 
     // Toggle Dropdown
     $('.menu-btn').click(

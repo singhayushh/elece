@@ -2,6 +2,29 @@
 }
 
 @media screen and (min-device-width: 890px), screen and (min-width: 890px) {
+
+  nav {
+    top: 0;
+    left: 0;
+    width: 6rem;
+    height: 100vh;
+    flex-direction: column;
+    padding: 1.25rem 0;
+  }
+
+  .toggle-dark {
+    margin-right: 0 !important;
+  }
+
+  .menu {
+    height: max-content;
+    display: block;
+  }
+
+  .logo {
+      display: block;
+  }
+
   .flex-column {
     flex-direction: column;
     align-items: center;
