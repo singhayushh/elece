@@ -4,7 +4,7 @@ const RenderNotice = async (req, res) => {
     const { path } = req.params;
     const notice = await n.FetchNoticeByPath(path);
     if (notice != 'err') {
-        res.render('notice', { notice });
+        res.render('notice', { notice, pageTitle: 'Elece - Notice' });
     } else {
         res.status(200).send('something went wrong');
     }
@@ -14,7 +14,7 @@ const RenderEditNotice = async (req, res) => {
     const { path } = req.params;
     const notice = await n.FetchNoticeByPath(path);
     if (notice != 'err') {
-        res.render('noticeEdit', { notice });
+        res.render('noticeEdit', { notice, pageTitle: 'Elece - Edit Notice' });
     } else {
         res.status(200).send('something went wrong');
     }

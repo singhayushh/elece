@@ -4,7 +4,7 @@ const RenderProfile = async (req, res) => {
     const { email } = req.body.user;
     const user = await u.FetchUserByEmail(email);
     if (user) {
-        res.render('profile', { user });
+        res.render('profile', { user, pageTitle: `Elece | ${user.name}` });
     } else {
         res.render('404');
     }
@@ -14,7 +14,7 @@ const RenderEdit = async (req, res) => {
     const { email } = req.body.user;
     const user = await u.FetchUserByEmail(email);
     if (user) {
-        res.render('editProfile', { user });
+        res.render('editProfile', { user, pageTitle: 'Elece - Edit Profile' });
     } else {
         res.render('404');
     }
@@ -24,7 +24,7 @@ const RenderUser = async (req, res) => {
     const { username } = req.params;
     const user = await u.FetchUserByUsername(username);
     if (user) {
-        res.render('profile', { user });
+        res.render('profile', { user, pageTitle: `Elece | ${user.name}` });
     } else {
         res.render('404');
     }

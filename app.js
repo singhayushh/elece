@@ -42,7 +42,7 @@ app.use('/profile', user);
 app.use('/timetable', timetable);
 
 app.get('*', (_req, res) => {
-    res.render('404');
+    res.render('404', { pageTitle: `Elece | 404` } );
 });
 
 app.listen(port, () => console.log(`Web server started at port: ${port}`));

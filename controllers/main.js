@@ -29,29 +29,29 @@ const RenderHome = async (_req, res) => {
     let today = (new Date()).getDay();
     const tt = await FetchTimetable('class-4');
 
-    const data = [...(tt.schedule[today].data), ...(tt.schedule[(today + 1) % 7].data)];
+    const data = tt.schedule[today].data;
 
-    res.render('home', { timetable: data});
+    res.render('home', { timetable: data, pageTitle: 'Elece' });
 
 };
 
 const RenderLogin = async (_req, res) => {
-    res.render('login', {url: AuthURL()});
+    res.render('login', {url: AuthURL(), pageTitle: 'Elece - Join' });
 };
 
 const RenderNotices = async (_req, res) => {
     let notices = await n.FetchAll();
-    res.render('notices', { notices });
+    res.render('notices', { notices, pageTitle: 'Elece - Notices' });
 };
 
 const RenderPeople = async (_req, res) => {
     let users = await u.FetchAll();
-    res.render('people', { users });
+    res.render('people', { users, pageTitle: 'Elece - People' });
 };
 
 const RenderTT = async (_req, res) => {
     const tt = await FetchTimetable('class-4');
-    res.render('timetable', { timetable: tt.schedule });
+    res.render('timetable', { timetable: tt.schedule, pageTitle: 'Elece - Timetable' });
 };
 
 const Login = async (req, res) => {

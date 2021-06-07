@@ -4,7 +4,7 @@ const RenderTTEdit = async (req, res) => {
     const { code } = req.params;
     const tt = await t.FetchTimetable(code);
     if (tt != 'err') {
-        res.render('timetableEdit', { timetable });
+        res.render('timetableEdit', { timetable, pageTitle: 'Elece - Edit Timetable' });
     } else {
         res.status(200).send('something went wrong');
     }
