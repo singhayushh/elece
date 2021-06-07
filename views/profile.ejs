@@ -49,7 +49,7 @@
                 <% for (var i = 0; i < user.interests.length; i++) { %>
 
                     <% if (i % 4 == 0 && user.interests[i] !== '') { %>
-                        <div class="tag red-icon"><%=  %></div>
+                        <div class="tag red-icon"><%= user.interests[i] %></div>
                     <% } else if (i % 3 == 1 && user.interests[i] !== '') { %>
                         <div class="tag blue-icon"><%= user.interests[i] %></div>
                     <% } else if (i % 4 == 2 && user.interests[i] !== '') { %>
