@@ -13,7 +13,9 @@
                     <%= user.name %>
                 </h2>
                 <p><%= user.bio %></p>
-                <a class="btn" href="/profile/edit">Edit Profile</a>
+                <% if (!hideEdit) { %> 
+                    <a class="btn" href="/profile/edit">Edit Profile</a>
+                <% } %>
             </div>
         </div>
         <div class="w-100">
@@ -46,13 +48,13 @@
                 <h3>Interests</h3>
                 <% for (var i = 0; i < user.interests.length; i++) { %>
 
-                    <% if (i % 4 == 0) { %>
-                        <div class="tag red-icon"><%= user.interests[i] %></div>
-                    <% } else if (i % 3 == 1) { %>
+                    <% if (i % 4 == 0 && user.interests[i] !== '') { %>
+                        <div class="tag red-icon"><%=  %></div>
+                    <% } else if (i % 3 == 1 && user.interests[i] !== '') { %>
                         <div class="tag blue-icon"><%= user.interests[i] %></div>
-                    <% } else if (i % 4 == 2) { %>
+                    <% } else if (i % 4 == 2 && user.interests[i] !== '') { %>
                         <div class="tag green-icon"><%= user.interests[i] %></div>
-                    <% } else { %>
+                    <% } else if (user.interests[i] !== ''){ %>
                         <div class="tag yellow-icon"><%= user.interests[i] %></div>
                     <% } %>
                 <% } %>

@@ -81,6 +81,10 @@
     width: calc(100% - 6rem);
   }
 
+  table {
+    width: 100% !important;
+  }
+
 }
 
 @media screen and (min-device-width: 768px), screen and (min-width: 768px) {

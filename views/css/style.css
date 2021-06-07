@@ -542,3 +542,12 @@ button {
     display: flex;
     align-items: center;
 }
+
+table {
+    width: max-content !important;
+}
+
+nav {
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+}
