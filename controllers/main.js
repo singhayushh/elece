@@ -28,7 +28,7 @@ const RenderHome = async (_req, res) => {
     
     let today = (new Date()).getDay();
     const tt = await FetchTimetable('class-4');
-    data=[]
+    let data=[];
     if (tt){
         data = tt.schedule[today].data;
     }
@@ -52,7 +52,7 @@ const RenderPeople = async (_req, res) => {
 
 const RenderTT = async (_req, res) => {
     const tt = await FetchTimetable('class-4');
-    ttschedule=tt?tt.scedule:[];
+    ttschedule=tt?tt.schedule:[];
     res.render('timetable', { timetable: ttschedule, pageTitle: 'Elece - Timetable' });
 };
 
