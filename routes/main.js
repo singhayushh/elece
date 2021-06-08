@@ -11,5 +11,6 @@ Router.get('/login', m.RenderLogin);
 Router.get('/notices', m.RenderNotices);
 Router.get('/people', auth(), m.RenderPeople);
 Router.get('/schedule', m.RenderTT);
+Router.get('/classroom', auth(), m.RenderClass);
 
 module.exports = Router;
