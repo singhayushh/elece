@@ -6,7 +6,8 @@ const googleAuth = require('../middlewares/google');
 
 Router.get('/auth/google', googleAuth, m.Login);
 
-Router.get('/', m.RenderHome);
+Router.get('/', m.RenderIndex);
+Router.get('/home', m.RenderHome);
 Router.get('/login', m.RenderLogin);
 Router.get('/notices', m.RenderNotices);
 Router.get('/people', auth(), m.RenderPeople);

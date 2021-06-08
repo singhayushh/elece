@@ -24,16 +24,25 @@ const AuthURL = () => {
     return `${rootUrl}?${querystring.stringify(options)}`;
 };
 
-const RenderHome = async (_req, res) => {
-    
+const RenderIndex = async (req, res) => {
+    let authorized = false;
+    if (req.body.user)  authorized = true;
+    res.render('index', { pageTitle: 'Elece', authorized });
+};
+
+const RenderHome = async (req, res) => { 
+    const defaultClass = req.body.user.defaultClass;
+
     let today = (new Date()).getDay();
-    const tt = await FetchTimetable('class-4');
+    let tt;
+    
+    tt = await FetchTimetable(defaultClass);
+
     let data=[];
     if (tt && tt.schedule){
-        data = tt.schedule.length>today?tt.schedule[today].data:[];
+        data = tt.schedule.length > today ? tt.schedule[today].data:[];
     }
     res.render('home', { timetable: data, pageTitle: 'Elece' });
-
 };
 
 const RenderLogin = async (_req, res) => {
@@ -43,6 +52,10 @@ const RenderLogin = async (_req, res) => {
 const RenderNotices = async (_req, res) => {
     let notices = await n.FetchAll();
     res.render('notices', { notices, pageTitle: 'Elece - Notices' });
+};
+
+const RenderClassroom = async (req, res) => {
+    
 };
 
 const RenderPeople = async (_req, res) => {
@@ -58,24 +71,24 @@ const RenderTT = async (_req, res) => {
 
 const Login = async (req, res) => {
     let result = await u.Create(req.body);
-    
-    if (result == 'banned') {
-        res.redirect('/?status=banned');
-    }
 
-    req.body.user.user_id = result._id;
-
-    const token = jwt.sign(req.body.user, process.env.JWT_SECRET);
-    res.cookie(process.env.COOKIE_NAME, token, {
-        maxAge: 100*60*60*1000,
-        httpOnly: true,
-        secure: false,
-    });
-
-    if (!result.dob) {
-        res.redirect('/profile/edit?status=welcome');
+    if (result.message == 'new') {
+        res.render('createAccount', { user: req.body.user });
+    } else if (result.message != 'verified') {
+        res.redirect('/?status=unverified');
     } else {
-        res.redirect('/profile');   
+        req.body.user.user_id = result.user._id;
+        req.body.user.role = result.user.role;
+        req.body.user.defaultClass = result.user.defaultClass;
+    
+        const token = jwt.sign(req.body.user, process.env.JWT_SECRET);
+        res.cookie(process.env.COOKIE_NAME, token, {
+            maxAge: 10*24*60*60*1000,
+            httpOnly: true,
+            secure: false,
+        });
+
+        res.redirect('/home');   
     }
 };
 

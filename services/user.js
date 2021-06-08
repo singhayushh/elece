@@ -1,31 +1,66 @@
 const User = require('../models/user');
 
-const Create = async (userBody) => {
+const Ban = async (user_id) => {
     try {
+        await User.updateOne({ _id: user_id }, { status: 'banned' });
+        return { message: 'success' };
+    } catch (error) {
+        return { message: 'error', error: error.message };
+    }
+};
+
+const Create = async (userBody) => {
+    userBody.email = (userBody.email).toLowerCase();
+    try {
+
         let user;
         user = await User.findOne({ email: userBody.user.email });
+
         if (!user) {
+            // If request is directly from google Oauth
+            if (!userBody.dob) {
+                return { message: 'new' };
+            }
+
+            // Else, the request is from create account page
             user = new User({
-                name: userBody.user.name,
-                email: userBody.user.email,
-                username: userBody.username || userBody.user.email.substring(0, userBody.user.email.indexOf("@")),
-                picture: userBody.user.picture,
-                isAdmin: userBody.user.isAdmin,
+                name: userBody.name,
+                email: userBody.email,
+                username: userBody.username || userBody.email.substring(0, userBody.email.indexOf("@")),
+                picture: userBody.picture,
+                dob: userBody.dob,
+                bio: userBody.bio,
+                interests: userBody.interests,
+                description: userBody.description,
+                defaultClass: userBody.defaultClass,
+                role: userBody.role
             });
             await user.save();
-        } else if (user.status == 'banned') {
-            return 'banned';
+        } 
+
+        if (user.status != 'verified') {
+            return { message: user.status };
+        } else {
+            return { user, message: success };
         }
-        return user;
     } catch (error) {
         console.log(error);
-        return error.message;
+        return { message: 'error', error: error.message };
     }
 }
 
+const Delete = async (user_id) => {
+    try {
+        await User.deleteOne({ _id: user_id });
+        return { message: 'success' };
+    } catch (error) {
+        return { message: 'error', error: error.message };
+    }
+};
+
 const Edit = async (userBody) => {
     try {
-        await User.updateOne({ email: userBody.user.email }, { 
+        await User.updateOne({ email: userBody.user.email }, {
             username: userBody.username,
             dob: userBody.dob,
             interests: userBody.interests,
@@ -35,54 +70,79 @@ const Edit = async (userBody) => {
             facebook: userBody.facebook,
             twitter: userBody.twitter,
             linkedin: userBody.linkedin
-         });
-        return 'success';
+        });
+        return { message: 'success' };
     } catch (error) {
-        return error.message;
+        return { message: 'error', error: error.message };
     }
 };
 
-const Delete = async (user_id) => {
+const Verify = async (user_id) => {
     try {
-        await User.updateOne({ _id: user_id }, { status: 'banned' });
-        return 'success'
+        await User.updateOne({ _id: user_id }, { status: 'verified' });
+        return { message: 'success' };
     } catch (error) {
-        return error.message;
+        return { message: 'error', error: error.message };
     }
 };
 
 const FetchAll = async () => {
     try {
         const users = await User.find();
-        return users;
+        return { message: 'success', users };
     } catch (error) {
-        return error.message;
+        return { message: 'error', error: error.message };
+    }
+};
+
+const FetchAllByClass = async (defaultClass) => {
+    try {
+        const users = await User.find({ defaultClass });
+        return { message: 'success', users };
+    } catch (error) {
+        return { message: 'error', error: error.message };
     }
 };
 
 const FetchUserByEmail = async (email) => {
+    email = email.toLowerCase();
     try {
         const user = await User.findOne({ email });
-        return user;
+        return { message: 'success', user };
     } catch (error) {
-        return error.message;
+        return { message: 'error', error: error.message };
+    }
+};
+
+const FetchAllByRole = async (role) => {
+    role = role.toLowerCase();
+    try {
+        const users = await User.find({ role });
+        return { message: 'success', users };
+    } catch (error) {
+        return { message: 'error', error: error.message };
     }
 };
 
 const FetchUserByUsername = async (username) => {
     try {
         const user = await User.findOne({ username });
-        return user;
+        return { message: 'success', user };
     } catch (error) {
-        return error.message;
+        return { message: 'error', error: error.message };
     }
 };
 
+
 module.exports = {
+    Ban,
     Create,
     Edit,
+    Delete,
+    Verify,
     FetchAll,
+    FetchAllByClass,
+    FetchAllByRole,
     FetchUserByEmail,
     FetchUserByUsername,
-    Delete,
 };

@@ -7,7 +7,20 @@ let timetableSchema = new Schema(
             type: String,
             required: true,
         },
-        schedule: [],
+        schedule: [
+            {
+                range: String,
+                room: String,
+                subject: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Subject'
+                },
+                teacher: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'User'
+                }
+            }
+        ],
     },
     {
         timestamps: true

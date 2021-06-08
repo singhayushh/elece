@@ -21,10 +21,6 @@ let userSchema = new Schema(
             type: String,
             required: true,
         },
-        isAdmin: {
-            type: Boolean,
-            default: false,
-        },
         dob: {
             type: Date,
             default: null,
@@ -34,7 +30,7 @@ let userSchema = new Schema(
         }],
         bio: {
             type: String,
-            default: 'Boring user... did not care to add a bio😪😪',
+            default: '🎯 Focusing',
         },
         description: {
             type: String,
@@ -42,19 +38,19 @@ let userSchema = new Schema(
         },
         instagram: {
             type: String,
-            default: '#',
+            default: '',
         },
         facebook: {
             type: String,
-            default: '#',
+            default: '',
         },
         twitter: {
             type: String,
-            default: '#',
+            default: '',
         },
         linkedin: {
             type: String,
-            default: '#',
+            default: '',
         },
         cover: {
             type: String,
@@ -66,8 +62,23 @@ let userSchema = new Schema(
         },
         status: {
             type: String,
+            default: 'unverified'
+        },
+        role: {
+            type: String,
             default: 'student'
         },
+        defaultClass: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Class',
+            default: null
+        },
+        classes: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Class'
+            }
+        ]
     },
     {
         timestamps: true
