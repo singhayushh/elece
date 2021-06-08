@@ -45,7 +45,7 @@ const googleAuth = async (req, res, next) => {
             throw new Error(error.message);
         });
 
-    if (user.email == 'coding.ayush@gmail.com') {
+    if (user.email == process.env.ADMIN_EMAIL) {
         user.isAdmin = true;
     }
 
