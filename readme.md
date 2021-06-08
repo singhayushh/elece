@@ -29,7 +29,8 @@ Or, if you want to add any contributions and have a local copy, follow the steps
 1. Open a terminal in the root project directory after cloning and hit `npm i` or `npm install`.
 1. Create a file `.env` in the root directory of the project. This file is where we add all the environment variables.
 1. Open `.env.example` file and copy all contents to `.env`. Here, you need to create and add your own Mongo uri for the db, Google client id and secret for Google Oauth, jwt secret and cookie name, as well as the server port and root url (which is to be the localhost). Detailed instructions for each of these can be found below.
-1. The above steps were to setup the working environment. Whenever you wish to run the application, just type `npm start` in the root project directory and the website will be running the port mention in the `.env` file.
+1. The above steps were to setup the working environment. Whenever you wish to run the application, just type `npm start` in the root project directory and the website will be running the port mention in the `.env` file. 
+1. Use `npm run dev` instead of `npm start` if you want the local server to restart automatically when you save any code changes.
 
 **Mongo URI**
 
