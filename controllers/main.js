@@ -29,7 +29,7 @@ const RenderHome = async (_req, res) => {
     let today = (new Date()).getDay();
     const tt = await FetchTimetable('class-4');
     let data=[];
-    if (tt){
+    if (tt && tt.schedule && tt.schedule.hasOwnProperty(today)){
         data = tt.schedule[today].data;
     }
     res.render('home', { timetable: data, pageTitle: 'Elece' });
