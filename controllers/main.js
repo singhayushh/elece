@@ -28,9 +28,10 @@ const RenderHome = async (_req, res) => {
     
     let today = (new Date()).getDay();
     const tt = await FetchTimetable('class-4');
-
-    const data = tt.schedule[today].data;
-
+    let data=[];
+    if (tt){
+        data = tt.schedule[today].data;
+    }
     res.render('home', { timetable: data, pageTitle: 'Elece' });
 
 };
@@ -51,7 +52,8 @@ const RenderPeople = async (_req, res) => {
 
 const RenderTT = async (_req, res) => {
     const tt = await FetchTimetable('class-4');
-    res.render('timetable', { timetable: tt.schedule, pageTitle: 'Elece - Timetable' });
+    ttschedule=tt?tt.schedule:[];
+    res.render('timetable', { timetable: ttschedule, pageTitle: 'Elece - Timetable' });
 };
 
 const Login = async (req, res) => {
