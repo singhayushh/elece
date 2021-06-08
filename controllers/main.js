@@ -77,8 +77,14 @@ const Login = async (req, res) => {
     }
 };
 
+const RenderClass = async (req, res) => {
+    const room = '15148janvjahfa87';
+    res.render('classroom', { user: req.body.user, room: room, pageTitle: 'Math Class' });
+};
+
 module.exports = {
     RenderHome,
+    RenderClass,
     RenderLogin,
     RenderNotices,
     RenderPeople,

@@ -1,0 +1,27 @@
+<%- include('partials/header.ejs') %>
+
+<section>
+    <div class="container">
+        <div id="meet"></div>
+    </div>
+</section>
+
+<script src='https://meet.jit.si/external_api.js'></script>
+<script>
+    let api;
+    const domain = 'meet.jit.si';
+    const options = {
+        roomName: '<%= room %>',
+        parentNode: document.querySelector('#meet'),
+        configOverwrite: { startWithAudioMuted: true, startWithVideoMuted: true, prejoinPageEnabled: false },
+        interfaceConfigOverwrite: { APP_NAME: 'Elece', DEFAULT_LOGO_URL: '/img/logo.png', MOBILE_APP_PROMO: false, HIDE_INVITE_MORE_HEADER: true },
+        userInfo: {
+            email: '<%= user.email %>',
+            displayName: '<%= user.name %>',
+            avatarUrl: '<%= user.picture %>'
+        }
+    }
+    api = new JitsiMeetExternalAPI(domain, options);
+    api.executeCommand('subject', 'Analog Communications Lab');
+</script>
+<%- include('partials/footer.ejs') %>

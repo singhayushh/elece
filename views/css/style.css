@@ -551,3 +551,18 @@ nav {
     border-top-left-radius: 22px;
     border-top-right-radius: 22px;
 }
+
+#meet {
+    width: 100%;
+    min-height: 600px;
+    border-radius: 22px;
+    overflow: hidden;
+    display: flex;
+}
+
+#meet iframe {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
