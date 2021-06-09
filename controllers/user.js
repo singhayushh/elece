@@ -1,5 +1,10 @@
 const u = require('../services/user');
 
+const RenderPeople = async(_req, res) => {
+    let users = await u.FetchAll();
+    res.render('people', { users, pageTitle: 'Elece - People' });
+};
+
 const RenderProfile = async(req, res) => {
     const { email } = req.body.user;
     const user = await u.FetchUserByEmail(email);
@@ -30,6 +35,23 @@ const RenderUser = async(req, res) => {
     }
 };
 
+const Verify = async (req, res) => {
+    let result = await u.Verify(req.body.user_id);
+    if (result.message == 'success') {
+        res.redirect('/people');
+    } else {
+        res.render('500');
+    }
+};
+
+const Ban = async (req, res) => {
+    let result = await u.Ban(req.body.user_id);
+    if (result.message == 'success') {
+        res.redirect('/people');
+    } else {
+        res.render('500');
+    }
+};
 
 const Logout = async(req, res) => {
     res.cookie(process.env.COOKIE_NAME, '', {
@@ -59,10 +81,13 @@ const Delete = async(req, res) => {
 };
 
 module.exports = {
-    RenderProfile,
-    RenderEdit,
-    RenderUser,
-    Logout,
+    Ban,
     Edit,
     Delete,
+    Logout,
+    Verify,
+    RenderEdit,
+    RenderPeople,
+    RenderProfile,
+    RenderUser,
 }

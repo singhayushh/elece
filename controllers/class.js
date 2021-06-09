@@ -1,14 +1,58 @@
 const c = require('../services/class');
 const t = require('../services/timetable');
 
-const RenderAllClasses = async (req, res) => {
+const Create = async (req, res) => {
     try {
-        const result = await c.FetchAll();
-        res.render('classes', { classes: result, pageTitle: 'Elece - Classes' });
+        const result = await c.Create(req.body);
+        res.redirect(`/class/${result.name}`);
     } catch (error) {
         res.render('500');
     }
 };
+
+const Edit = async (req, res) => {
+    try {
+        const result = await c.Edit(req.body);
+        if (result) {
+            res.redirect(`/class/${result.name}`)
+        } else {
+            res.render('404', { pageTitle: '404 Not Found' });
+        }
+    } catch (error) {
+        res.render('500');
+    }
+};
+
+const Delete = async (req, res) => {
+    try {
+        await c.Delete(req.body._id);
+        res.redirect('/home');
+    } catch (error) {
+        res.render('500');
+    }
+};
+
+const Join = async (req, res) => {
+    const { user_id, role, defaultClass } = req.body.user;
+    const { room } = req.body.params;
+    // range, room, subject, teacher
+    let fetchedClass = await t.FetchClassByRoom(room);
+    if (role == 'teacher') {
+        if (fetchedClass.teacher == user_id || defaultClass == fetchedClass._id) {
+            // Allow the teacher
+        } else {
+            // Disallow the teacher
+        }
+    } else if (role == 'student') {
+        if (fetchedClass._id == defaultClass) {
+            // Allow the student
+        } else {
+            // Disallow the student
+        }
+    } else if (role == 'admin') {
+        // Allow
+    }
+}
 
 const RenderClass = async (req, res) => {
     try {
@@ -38,32 +82,10 @@ const RenderEdit = async (req, res) => {
     }
 };
 
-const Create = async (req, res) => {
+const RenderAllClasses = async (req, res) => {
     try {
-        const result = await c.Create(req.body);
-        res.redirect(`/class/${result.name}`);
-    } catch (error) {
-        res.render('500');
-    }
-};
-
-const Edit = async (req, res) => {
-    try {
-        const result = await c.Edit(req.body);
-        if (result) {
-            res.redirect(`/class/${result.name}`)
-        } else {
-            res.render('404', { pageTitle: '404 Not Found' });
-        }
-    } catch (error) {
-        res.render('500');
-    }
-};
-
-const Delete = async (req, res) => {
-    try {
-        await c.Delete(req.body._id);
-        res.redirect('/home');
+        const result = await c.FetchAll();
+        res.render('classes', { classes: result, pageTitle: 'Elece - Classes' });
     } catch (error) {
         res.render('500');
     }

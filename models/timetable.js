@@ -9,8 +9,14 @@ let timetableSchema = new Schema(
         },
         schedule: [
             {
-                range: String,
-                room: String,
+                range: {
+                    type: String,
+                    unique: false
+                },
+                room: {
+                    type: String,
+                    unique: true,
+                },
                 subject: {
                     type: mongoose.Schema.Types.ObjectId,
                     ref: 'Subject'

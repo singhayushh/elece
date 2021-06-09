@@ -14,8 +14,8 @@ Router.get('/login', m.RenderLogin);
 Router.get('/home', auth(), m.RenderHome);
 Router.get('/notices', auth(), m.RenderNotices);
 Router.get('/schedule', auth(), m.RenderTT);
-Router.get('/classroom', auth(), m.RenderClass);
 
-Router.get('/people', auth('admin'), m.RenderPeople);
+Router.get('/teachers', auth('teacher'), m.RenderTeachers);
+Router.get('/students/:class_id', auth('teacher'), m.RenderStudents);
 
 module.exports = Router;

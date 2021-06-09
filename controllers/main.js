@@ -72,18 +72,30 @@ const RenderNotices = async(_req, res) => {
     res.render('notices', { notices, pageTitle: 'Elece - Notices' });
 };
 
-// Admin - view teachers and students
-const RenderPeople = async(_req, res) => {
-    let users = await u.FetchAll();
-    res.render('people', { users, pageTitle: 'Elece - People' });
-};
-
 // Authorized user's time table
 const RenderTT = async(_req, res) => {
     const tt = await FetchTimetable('class-4');
     ttschedule = tt ? tt.schedule : [];
     res.render('timetable', { timetable: ttschedule, pageTitle: 'Elece - Timetable' });
 };
+
+const RenderTeachers = async (_req, res) => {
+    const teachers = await u.FetchAllByRole('teacher');
+    if (teachers.length)
+        res.render('people', { teachers, pageTitle: 'Elece - Teachers' });
+    else 
+        res.render('404', { pageTitle: '404 not found' });
+};
+
+const RenderStudents = async (_req, res) => {
+    const { class_id } = req.params;
+    const students = await u.FetchAllByClass(class_id);
+    if (students.length)
+        res.render('people', { students, pageTitle: 'Elece - Teachers' });
+    else 
+        res.render('404', { pageTitle: '404 not found' });
+};
+
 
 // Handle Google OAuth redirect
 const Login = async(req, res) => {
@@ -117,6 +129,7 @@ module.exports = {
     RenderHome,
     RenderLogin,
     RenderNotices,
-    RenderPeople,
+    RenderStudents,
+    RenderTeachers,
     RenderTT,
 };

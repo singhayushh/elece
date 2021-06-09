@@ -31,14 +31,18 @@ app.set('case sensitive routing', true);
 app.use(express.static(__dirname + '/views'));
 app.set('view engine', 'ejs');
 
+const _class = require('./routes/class');
 const main = require('./routes/main');
 const notice = require('./routes/notice');
+const subject = require('./routes/subject');
 const timetable = require('./routes/timetable');
-const user = require('./routes/user');
+const user = require('./routes/profile');
 
 app.use('/', main);
+app.use('/class', _class);
 app.use('/notice', notice);
 app.use('/profile', user);
+app.use('/subjects', subject);
 app.use('/timetable', timetable);
 
 app.get('*', (_req, res) => {

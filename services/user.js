@@ -79,8 +79,8 @@ const Edit = async (userBody) => {
 
 const Verify = async (user_id) => {
     try {
-        await User.updateOne({ _id: user_id }, { status: 'verified' });
-        return { message: 'success' };
+        const user = await User.findOneAndUpdateOne({ _id: user_id }, { status: 'verified' });
+        return { message: 'success', user };
     } catch (error) {
         return { message: 'error', error: error.message };
     }
