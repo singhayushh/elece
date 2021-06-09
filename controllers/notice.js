@@ -39,7 +39,7 @@ const Edit = async (req, res) => {
 };
 
 const Delete = async (req, res) => {
-    const result = n.Delete(req.body._id);
+    const result = await n.Delete(req.body._id);
     if (result == 'success') {
         res.redirect('/');
     } else {

@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 let timetableSchema = new Schema(
     {
-        code: {
-            type: String,
-            required: true,
+        class: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Class'
         },
         schedule: [
             {

@@ -6,6 +6,7 @@ let classSchema = new Schema(
         name: {
             type: String,
             required: true,
+            unique: true
         },
         subjects: [
             {
@@ -13,6 +14,10 @@ let classSchema = new Schema(
                 ref: 'Subject'
             }
         ],
+        teacher: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
     },
     {
         timestamps: true

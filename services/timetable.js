@@ -2,33 +2,62 @@ const Timetable = require("../models/timetable");
 
 const Create = async (ttBody) => {
     try {
-        const tt = await Timetable.create(ttBody);
-        return tt;        
+        return await Timetable.create(ttBody);    
     } catch (error) {
-        return error.message;
+        throw error;
     }
 };
 
 const Edit = async (ttBody) => {
     try {
-        const tt = Timetable.findOneAndUpdate({ code: ttBody.code }, { schedule: ttBody.schedule });
-        return tt;
+        return await Timetable.findOneAndUpdate({ class: ttBody.class }, { schedule: ttBody.schedule });
     } catch (error) {
-        return error.message;
+        throw error;
     }
 };
 
-const FetchTimetable = async (code) => {
+const Delete = async (_id) => {
     try {
-        const tt = await Timetable.findOne({ code });
-        return tt;
+        return await Timetable.deleteOne({ _id });
     } catch (error) {
-        return error.message;
+        throw error;
+    }
+};
+
+const FetchTimetable = async (class_id) => {
+    try {
+        const result = await Timetable.findOne({ class: class_id }).populate({ path: 'class', select: 'name' }).populate(result, {
+            path: 'schedule.subject',
+            select: 'name'
+        }).populate(result, {
+            path: 'schedule.teacher',
+            select: 'name username picture'
+        });
+
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const FetchAll = async () => {
+    try {
+        return await Timetable.find().populate({ path: 'class', select: 'name' }).populate(result, {
+            path: 'schedule.subject',
+            select: 'name'
+        }).populate(result, {
+            path: 'schedule.teacher',
+            select: 'name username picture'
+        });
+    } catch (error) {
+        throw error;
     }
 };
 
 module.exports = {
     Create,
     Edit,
+    Delete,
+    FetchAll,
     FetchTimetable
 };
