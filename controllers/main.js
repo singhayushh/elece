@@ -84,8 +84,8 @@ const RenderTT = async(req, res) => {
 
 const RenderTeachers = async (_req, res) => {
     const teachers = await u.FetchAllByRole('teacher');
-    if (teachers.length)
-        res.render('teachers', { teachers, pageTitle: 'Elece - Teachers' });
+    if (teachers.users.length)
+        res.render('teachers', { teachers: teachers.users, pageTitle: 'Elece - Teachers' });
     else 
         res.render('404', { pageTitle: '404 not found' });
 };
