@@ -1,8 +1,15 @@
 const u = require('../services/user');
 
 const RenderPeople = async(_req, res) => {
-    let users = await u.FetchAll();
-    res.render('people', { users, pageTitle: 'Elece - People' });
+    try {
+        let result = await u.FetchAllByRole('teacher');
+        const teachers = result.users;
+        result = await u.FetchAllByRole('student');
+        const students = result.users;
+        res.render('people', { teachers, students, pageTitle: 'Elece - People' });
+    } catch (error) {
+        res.render('500');
+    }
 };
 
 const RenderProfile = async(req, res) => {

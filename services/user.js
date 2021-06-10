@@ -118,7 +118,7 @@ const FetchUserByEmail = async (email) => {
 const FetchAllByRole = async (role) => {
     role = role.toLowerCase();
     try {
-        const users = await User.find({ role });
+        const users = await User.find({ role }).populate({ path: 'defaultClass', select: 'name'});
         return { message: 'success', users };
     } catch (error) {
         return { message: 'error', error: error.message };

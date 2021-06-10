@@ -566,3 +566,22 @@ nav {
     top: 0;
     left: 0;
 }
+
+.actions a {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.actions a:hover {
+    transform: scale(1.1);
+}
+
+.actions a svg{
+    height: 28px;
+    font-weight: 600;
+}

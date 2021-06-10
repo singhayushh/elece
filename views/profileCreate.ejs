@@ -38,7 +38,7 @@
                 <label for="defaultClass">Class</label>
                 <select name="defaultClass" id="defaultClass">
                     <% for (var i = 0; i < classes.length; i++) { %>
-                        <option value="<%= classes[i].name %>"><%= classes[i].name %></option>
+                        <option value="<%= classes[i]._id %>"><%= classes[i].name %></option>
                     <% } %>
                 </select>
             </div>
