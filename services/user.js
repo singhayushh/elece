@@ -80,9 +80,10 @@ const Edit = async (userBody) => {
 
 const Verify = async (user_id) => {
     try {
-        const user = await User.findOneAndUpdateOne({ _id: user_id }, { status: 'verified' });
+        const user = await User.findOneAndUpdate({ _id: user_id }, { status: 'verified' });
         return { message: 'success', user };
     } catch (error) {
+        console.log(error);
         return { message: 'error', error: error.message };
     }
 };
