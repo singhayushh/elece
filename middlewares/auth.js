@@ -7,7 +7,7 @@ const auth = (role) => {
 
             if (role == 'admin' && decoded.role != 'admin') {
                 res.redirect('/home');
-            } else if (role == 'teacher' && (decoded.role != 'teacher' || decoded.role != 'admin')) {
+            } else if (role == 'teacher' && (decoded.role != 'teacher' && decoded.role != 'admin')) {
                 res.redirect('/home');
             } else {
                 req.body.user = decoded;
