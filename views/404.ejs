@@ -1,7 +1,38 @@
 <%- include('partials/header.ejs') %>
 
+<style>
+    .c404 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: calc(100vh - 2rem);
+    }
+    .c404 h2 {
+        font-size: 36px;
+        padding-top: 1.25rem;
+    }
+    .c404 img {
+        animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+        0% {
+            transform: translatey(0px);
+        }
+        50% {
+            transform: translatey(-20px);
+        }
+        100% {
+            transform: translatey(0px);
+        }
+    }
+</style>
+
 <section>
-    <img src="/img/404.png" alt="" style="width: 100vw;">
+    <div class="container c404">
+        <img src="/img/404.png" alt="" height="70%">
+        <h2>404... This page doesn't exist</h2>
+    </div>
 </section>
 
 <%- include('partials/footer.ejs') %>

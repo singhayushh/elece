@@ -5,14 +5,14 @@ const auth = (role) => {
         try {
             const decoded = jwt.verify(req.cookies[process.env.COOKIE_NAME], process.env.JWT_SECRET);
 
-            if (role == 'admin') {
-                if (!decoded.isAdmin) {
-                    // Not admin
-                    res.redirect('/');
-                }
+            if (role == 'admin' && decoded.role != 'admin') {
+                res.redirect('/home');
+            } else if (role == 'teacher' && (decoded.role != 'teacher' || decoded.role != 'admin')) {
+                res.redirect('/home');
+            } else {
+                req.body.user = decoded;
+                next();
             }
-            req.body.user = decoded;
-            next();
         } catch (error) {
             res.redirect('/login');
         }

@@ -1,6 +1,7 @@
 const querystring = require('querystring');
 const jwt = require('jsonwebtoken');
 
+const c = require('../services/class');
 const n = require('../services/notice');
 const u = require('../services/user');
 const { FetchTimetable } = require('../services/timetable');
@@ -24,72 +25,121 @@ const AuthURL = () => {
     return `${rootUrl}?${querystring.stringify(options)}`;
 };
 
-const RenderHome = async (_req, res) => {
-    
+// Static Page about the website
+const RenderIndex = async(req, res) => {
+    let authorized = false;
+    if (req.body.user) authorized = true;
+    res.render('index', { pageTitle: 'Elece', authorized });
+};
+
+// About the website
+const RenderAbout = async(req, res) => {
+    let authorized = false;
+    if (req.body.user) authorized = true;
+    res.render('about', { pageTitle: 'Elece - About', authorized });
+};
+
+// Dev Team Promo
+const RenderTeam = async(req, res) => {
+    let authorized = false;
+    if (req.body.user) authorized = true;
+    res.render('team', { pageTitle: 'Elece - Team', authorized });
+};
+
+// Dashboard - classes today + card nav
+const RenderHome = async(req, res) => {
+    const defaultClass = req.body.user.defaultClass;
+
     let today = (new Date()).getDay();
-    const tt = await FetchTimetable('class-4');
-    let data=[];
-    if (tt && tt.schedule){
-        data = tt.schedule.length>today?tt.schedule[today].data:[];
+    let tt;
+
+    tt = await FetchTimetable(defaultClass);
+
+    let data = [];
+    if (tt && tt.schedule) {
+        data = tt.schedule.length > today ? tt.schedule[today].data : [];
     }
     res.render('home', { timetable: data, pageTitle: 'Elece' });
-
 };
 
-const RenderLogin = async (_req, res) => {
-    res.render('login', {url: AuthURL(), pageTitle: 'Elece - Join' });
+// Google OAuth Login page
+const RenderLogin = async(_req, res) => {
+    res.render('login', { url: AuthURL(), pageTitle: 'Elece - Join' });
 };
 
-const RenderNotices = async (_req, res) => {
+// For Global School Notices
+const RenderNotices = async(_req, res) => {
     let notices = await n.FetchAll();
     res.render('notices', { notices, pageTitle: 'Elece - Notices' });
 };
 
-const RenderPeople = async (_req, res) => {
-    let users = await u.FetchAll();
-    res.render('people', { users, pageTitle: 'Elece - People' });
-};
-
-const RenderTT = async (_req, res) => {
-    const tt = await FetchTimetable('class-4');
-    ttschedule=tt?tt.schedule:[];
+// Authorized user's time table
+const RenderTT = async(req, res) => {
+    const { defaultClass } = req.body.user;
+    const tt = await FetchTimetable(defaultClass);
+    ttschedule = tt ? tt.schedule : [];
     res.render('timetable', { timetable: ttschedule, pageTitle: 'Elece - Timetable' });
 };
 
-const Login = async (req, res) => {
-    let result = await u.Create(req.body);
-    
-    if (result == 'banned') {
-        res.redirect('/?status=banned');
-    }
-
-    req.body.user.user_id = result._id;
-
-    const token = jwt.sign(req.body.user, process.env.JWT_SECRET);
-    res.cookie(process.env.COOKIE_NAME, token, {
-        maxAge: 100*60*60*1000,
-        httpOnly: true,
-        secure: false,
-    });
-
-    if (!result.dob) {
-        res.redirect('/profile/edit?status=welcome');
-    } else {
-        res.redirect('/profile');   
-    }
+const RenderTeachers = async (_req, res) => {
+    const teachers = await u.FetchAllByRole('teacher');
+    if (teachers.length)
+        res.render('people', { teachers, pageTitle: 'Elece - Teachers' });
+    else 
+        res.render('404', { pageTitle: '404 not found' });
 };
 
-const RenderClass = async (req, res) => {
-    const room = '15148janvjahfa87';
-    res.render('classroom', { user: req.body.user, room: room, pageTitle: 'Math Class' });
+const RenderStudents = async (_req, res) => {
+    const { class_id } = req.params;
+    const students = await u.FetchAllByClass(class_id);
+    if (students.length)
+        res.render('people', { students, pageTitle: 'Elece - Teachers' });
+    else 
+        res.render('404', { pageTitle: '404 not found' });
+};
+
+// Handle Google OAuth redirect
+const Login = async(req, res) => {
+    if (req.body.email && req.body.name && req.body.picture ) {
+        req.body.user = { 
+            email: req.body.email, 
+            name: req.body.name, 
+            picture: req.body.picture, 
+        };
+    }
+    let result = await u.Create(req.body);
+
+    if (result.message == 'new') {
+        req.body.user.username = req.body.user.email.substring(0, req.body.user.email.indexOf("@"));
+        const classes = await c.FetchAll();
+        res.render('profileCreate', { user: req.body.user, classes, pageTitle: 'Elece - Create Account' });
+    } else if (result.message != 'success') {
+        res.redirect('/?status=unverified');
+    } else {
+        req.body.user.user_id = result.user._id;
+        req.body.user.role = result.user.role;
+        req.body.user.defaultClass = result.user.defaultClass;
+
+        const token = jwt.sign(req.body.user, process.env.JWT_SECRET);
+        res.cookie(process.env.COOKIE_NAME, token, {
+            maxAge: 10 * 24 * 60 * 60 * 1000,
+            httpOnly: true,
+            secure: false,
+        });
+
+        res.redirect('/home');
+    }
 };
 
 module.exports = {
+    Login,
+    RenderIndex,
+    RenderAbout,
+    RenderTeam,
     RenderHome,
-    RenderClass,
     RenderLogin,
     RenderNotices,
-    RenderPeople,
+    RenderStudents,
+    RenderTeachers,
     RenderTT,
-    Login,
 };

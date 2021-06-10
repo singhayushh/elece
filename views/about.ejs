@@ -1,0 +1,50 @@
+<%- include('partials/header.ejs') %>
+
+<section>
+    <div class="container">
+        <h1>Welcome to Elece!</h1>
+        <p>Elece is a project aimed at providing a web latform for schools and universities to conduct and organize their classes online. From embedded live meetings to managing teachers and students for school admins, Elece has it all covered. The best way to understand the platform is to use it. Main features of the website are listed below.</p>
+        <ul>
+            <li>
+                <h3>1. Classes and subjects</h3>
+                <p>
+                    The first task of the admin of the university / school is to create and specify the various classes and subjects included in the institution. The parameters will be editable anytime after creation but these are base over which all other features and sections would depend upon. While registering to the platform, students and teachers will be asked to choose thier classes (for students) and subjects (for teachers).
+                </p>
+            </li>
+            <li>
+                <h3>2. Students and teacher registration.</h3> 
+                <p>
+                    Teachers are to register themselves to the platform either as class teachers, or subject teachers and of course, both. Some of the users from the school will be given admin access who will be responsible for looking after these new registrants and verify them to start using the platform.
+                    <br>
+                    Students of the school / university must register themselves into the platform and specify what class-section they belong to. The corresponding class teacher as well as the admin will have to option to verify the student for him / her to start using the platform.
+                </p>
+            </li>
+            <li>
+                <h3>3. Scheduling of weekly classes.</h3>
+                <p>
+                    The platform requires you to create a fixed timetable for every class, just like the scenario in offline schools. The timetables will of course, be editable anytime but sticking to a fixed schedule instead of organizing classes hapazardly is given a top priority in this platform. The class teachers or the admins will have the option to create a timetable for their classes, specifying the time period, week day, teacher name, 'room' as well as the subject, which will be repeated every week of the year. After creation, each of the schedules will be visible in the respective classes.
+                </p>
+            </li>
+            <li>
+                <h3>4. Conducting online classes.</h3>
+                <p>
+                    Unlike other platforms, classes won't require students or teachers to move outside of the website to use meet services like Google Meet or Zoom. This platform includes an embedded meeting feature without the hustle and bustle of creating links, sharing in individual classes and all and sundry. Classes are conducted in 'rooms', mentioned while creating the timetable in the previous step. From recording attendance, to streaming the class live on youtube, there are tons of additional features that come with the embedded classroom feature.
+                </p>
+            </li>
+            <li>
+                <h3>5. Notices and Announcements</h3>
+                <p>
+                    A small handy feature to create notices-cum-announcements for all teachers as well as students is included in this platform. Usage maybe to declare vacations or holidays etc etc.
+                </p>
+            </li>
+            <li>
+                <h3>6. Assignments and Assessments</h3>
+                <p>
+                    Mentioned at last because this feature has not yet been worked upon yet. There are two possible approaches - Either to integrate google classroom via APIs. This way the platform will be actually using Google Classroom in the background but the website will be able to present all data from Google classrooms to here. The second approach is to create our own Google Classroom - like feature. This will give more control and any feature can be altered in any way as required. This is a future prospect. (To be done by month end).
+                </p>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<%- include('partials/footer.ejs') %>

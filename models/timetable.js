@@ -3,11 +3,30 @@ const Schema = mongoose.Schema;
 
 let timetableSchema = new Schema(
     {
-        code: {
-            type: String,
-            required: true,
+        class: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Class'
         },
-        schedule: [],
+        schedule: [
+            {
+                range: {
+                    type: String,
+                    unique: false
+                },
+                room: {
+                    type: String,
+                    unique: true,
+                },
+                subject: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Subject'
+                },
+                teacher: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'User'
+                }
+            }
+        ],
     },
     {
         timestamps: true

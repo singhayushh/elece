@@ -1,5 +1,9 @@
 const n = require('../services/notice');
 
+const RenderCreate = async (req, res) => {
+    res.render('noticeCreate', { pageTitle: 'Elece - Create Notice'});
+};
+
 const RenderNotice = async (req, res) => {
     const { path } = req.params;
     const notice = await n.FetchNoticeByPath(path);
@@ -10,7 +14,7 @@ const RenderNotice = async (req, res) => {
     }
 };
 
-const RenderEditNotice = async (req, res) => {
+const RenderEdit = async (req, res) => {
     const { path } = req.params;
     const notice = await n.FetchNoticeByPath(path);
     if (notice != 'err') {
@@ -39,7 +43,7 @@ const Edit = async (req, res) => {
 };
 
 const Delete = async (req, res) => {
-    const result = n.Delete(req.body._id);
+    const result = await n.Delete(req.body._id);
     if (result == 'success') {
         res.redirect('/');
     } else {
@@ -48,8 +52,9 @@ const Delete = async (req, res) => {
 };
 
 module.exports = {
+    RenderCreate,
+    RenderEdit,
     RenderNotice,
-    RenderEditNotice,
     Create,
     Edit,
     Delete,

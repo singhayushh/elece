@@ -4,13 +4,20 @@ const m = require('../controllers/main');
 const auth = require('../middlewares/auth');
 const googleAuth = require('../middlewares/google');
 
-Router.get('/auth/google', googleAuth, m.Login);
+Router.get('/', m.RenderIndex);
+Router.get('/about', m.RenderAbout);
+Router.get('/team', m.RenderTeam);
 
-Router.get('/', m.RenderHome);
+Router.get('/auth/google', googleAuth, m.Login);
 Router.get('/login', m.RenderLogin);
-Router.get('/notices', m.RenderNotices);
-Router.get('/people', auth(), m.RenderPeople);
-Router.get('/schedule', m.RenderTT);
-Router.get('/classroom', auth(), m.RenderClass);
+
+Router.get('/home', auth(), m.RenderHome);
+Router.get('/notices', auth(), m.RenderNotices);
+Router.get('/schedule', auth(), m.RenderTT);
+
+Router.get('/teachers', auth('teacher'), m.RenderTeachers);
+Router.get('/students/:class_id', auth('teacher'), m.RenderStudents);
+
+Router.post('/login', m.Login);
 
 module.exports = Router;

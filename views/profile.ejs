@@ -18,7 +18,7 @@
                 <% } %>
             </div>
         </div>
-        <div class="w-100">
+        <!-- <div class="w-100">
             <ul>
                 <li class="icon">
                     <a href="<%= user.facebook %>" target="_blank"><i data-feather="facebook"></i></a>
@@ -33,31 +33,12 @@
                     <a href="<%= user.twitter %>" target="_blank"><i data-feather="twitter"></i></a>
                 </li>
             </ul>
-        </div>
+        </div> -->
 
         <div class="profile-wrapper">
             <div class="form-item row">
                 <h3>Username</h3>
                 <div id="input"><%= user.username %></div>
-            </div>
-            <div class="form-item row">
-                <h3>About</h3>
-                <div id="input"><%= user.description %></div>
-            </div>
-            <div class="form-item row">
-                <h3>Interests</h3>
-                <% for (var i = 0; i < user.interests.length; i++) { %>
-
-                    <% if (i % 4 == 0 && user.interests[i] !== '') { %>
-                        <div class="tag red-icon"><%= user.interests[i] %></div>
-                    <% } else if (i % 3 == 1 && user.interests[i] !== '') { %>
-                        <div class="tag blue-icon"><%= user.interests[i] %></div>
-                    <% } else if (i % 4 == 2 && user.interests[i] !== '') { %>
-                        <div class="tag green-icon"><%= user.interests[i] %></div>
-                    <% } else if (user.interests[i] !== ''){ %>
-                        <div class="tag yellow-icon"><%= user.interests[i] %></div>
-                    <% } %>
-                <% } %>
             </div>
         </div>
     </div>

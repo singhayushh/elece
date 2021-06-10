@@ -1,0 +1,51 @@
+<%- include('partials/header.ejs') %>
+
+<section id="profile">
+
+    <div class="container">
+        <h1>Create Profile</h1>
+        <div class="wrapper span-1-of-1 flex-wrap" style="align-items: center !important;">
+            <div class="profile-img">
+                <img src="<%= user.picture %>" alt="">
+            </div>
+            <div class="profile-bio">
+                <h2>
+                    <%= user.name %>
+                </h2>
+            </div>
+        </div>
+
+        <form action="/login" class="profile-wrapper" method="POST">
+            <input type="hidden" name="name" value="<%= user.name %>">
+            <input type="hidden" name="email" value="<%= user.email %>">
+            <input type="hidden" name="picture" value="<%= user.picture %>">
+            <div class="form-item row">
+                <label for="username">Username</label>
+                <input type="text" id="input" value="<%= user.username %>" name="username" placeholder="Add a one-word username for yourself">
+            </div>
+            <div class="form-item row">
+                <label for="dob">Date of birth</label>
+                <input type="date" id="input" value="<%= user.dob %>" name="dob" required>
+            </div>
+            <div class="form-item row">
+                <label for="role">Role</label>
+                <select name="role" id="role" required>
+                    <option value="teacher">Teacher</option>
+                    <option value="student">Student</option>
+                </select>
+            </div>
+            <div class="form-item row">
+                <label for="defaultClass">Class</label>
+                <select name="defaultClass" id="defaultClass">
+                    <% for (var i = 0; i < classes.length; i++) { %>
+                        <option value="<%= classes[i]._id %>"><%= classes[i].name %></option>
+                    <% } %>
+                </select>
+            </div>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
+</section>
+
+<%- include('partials/footer.ejs') %>
