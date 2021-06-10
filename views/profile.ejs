@@ -15,6 +15,7 @@
                 <p><%= user.bio %></p>
                 <% if (!hideEdit) { %> 
                     <a class="btn" href="/profile/edit">Edit Profile</a>
+                    <a class="btn" href="/profile/logout">Logout</a>
                 <% } %>
             </div>
         </div>
@@ -36,10 +37,32 @@
         </div> -->
 
         <div class="profile-wrapper">
-            <div class="form-item row">
-                <h3>Username</h3>
-                <div id="input"><%= user.username %></div>
-            </div>
+            <form>
+                <div class="form-item" id="card">
+                    <label>Username</label>
+                    <span><%= user.username %></span>
+                </div>
+                <div class="form-item" id="card">
+                    <label>Role</label>
+                    <span><%= user.role %></span>
+                </div>
+                <div class="form-item" id="card">
+                    <label>Class</label>
+                    <span><%= user.defaultClass.name %></span>
+                </div>
+                <div class="form-item" id="card">
+                    <label>Status</label>
+                    <span class="red-icon"><%= user.status %></span>
+                </div>
+                <div class="form-item" id="card">
+                    <label>Joined</label>
+                    <span><%= new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' }).format(user.createdAt) %></span>
+                </div>
+                <div class="form-item" id="card">
+                    <label>Last Updated</label>
+                    <span><%= new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' }).format(user.updatedAt) %></span>
+                </div>
+            </form>
         </div>
     </div>
 

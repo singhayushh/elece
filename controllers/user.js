@@ -24,9 +24,9 @@ const RenderProfile = async(req, res) => {
 
 const RenderEdit = async(req, res) => {
     const { email } = req.body.user;
-    const user = await u.FetchUserByEmail(email);
-    if (user) {
-        res.render('profileEdit', { user, pageTitle: 'Elece - Edit Profile' });
+    const result = await u.FetchUserByEmail(email);
+    if (result.message == 'success') {
+        res.render('profileEdit', { user: result.user, pageTitle: 'Elece - Edit Profile' });
     } else {
         res.render('404', { pageTitle: 'Elece | 404' });
     }

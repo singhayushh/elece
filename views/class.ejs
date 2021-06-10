@@ -1,0 +1,83 @@
+<!-- 
+    Teacher Card
+    Timetable
+    Recent Classes
+ -->
+
+ <%- include('partials/header.ejs') %>
+
+<section id="class">
+    <div class="container">
+        <!-- Teacher Card -->
+        <h1>Class <%= _class.name %></h1>
+        <div class="card">
+            <div class="img-wrapper">
+                <img src="<%= _class.teacher.picture %>" alt="<%= _class.teacher.name %>">
+            </div>
+            <div class="caption">
+                <h4><%= _class.teacher.name %></h4>
+                <span>Class Teacher</span>
+            </div>
+        </div>
+
+        <div class="profile-wrapper">
+
+            <h2>Weekly Time table</h2>
+
+            <!-- Time Table -->
+            <% if (!timetable.length) { %>
+                <div class="row"><strong>Yuhuu! No classes this week!</strong></div>
+            <% } %>
+            <% for (var i = 0; i < timetable.length; i++) { %>
+                <% if (i == 0) { %>
+                    <h3>Sunday</h3>
+                <% } else if (i == 1) { %>
+                    <h3>Monday</h3>
+                <% } else if (i == 2) { %>
+                    <h3>Tuesday</h3>
+                <% } else if (i == 3) { %>
+                    <h3>Wednesday</h3>
+                <% } else if (i == 4) { %>
+                    <h3>Thursday</h3>
+                <% } else if (i == 5) { %>
+                    <h3>Friday</h3>
+                <% } else if (i == 6) { %>
+                    <h3>Saturday</h3>
+                <% } %>
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <th width="50%">
+                            </th>
+                        <th width="25%">
+                            </th>
+                        <th width="25%">
+                            </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <% if (!timetable[i].periods.length) { %>
+                            <div class="row">--</div>
+                        <% } else { %>
+                        <% for (var j = 0; j < timetable[i].periods.length; j++) { %>
+                            <tr>
+                                <td>
+                                <i data-feather="disc"></i> <%= timetable[i].periods[j].subject.name %>
+                                </td>
+                                <td>
+                                <%= timetable[i].periods[j].range %>
+                                </td>
+                                <td>
+                                <a href="https://meet.google.com/<%= timetable[i].periods[j].room %>">Join Class</a>
+                                </td>
+                            </tr>
+                        <% }} %>
+                    </tbody>
+                </table>
+            <% } %>
+        </div>
+        <!-- Recent Classes -->
+    </div>
+</section>
+
+<%- include('partials/footer.ejs') %>

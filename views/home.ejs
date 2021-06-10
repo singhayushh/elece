@@ -37,37 +37,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% if (!timetable.length) { %>
+                    <% if (!timetable.periods) { %>
                         <div class="row"><strong>Yuhuu! No classes today!</strong></div>
                     <% } %>
-                    <% for (var i = 0; i < timetable.length; i++) { %>
+                    <% for (var i = 0; i < timetable.periods.length; i++) { %>
                         <tr>
                             <% if (i == 0) { %> 
                                 <td class="tr-start-left">
-                                    <i data-feather="disc"></i> <%= timetable[i].subject %>
+                                    <i data-feather="disc"></i> <%= timetable.periods[i].subject.name %>
                                 </td>
                                 <td>
-                                    <%= timetable[i].range %>
+                                    <%= timetable.periods[i].range %>
                                 </td>
                                 <td class="tr-start-right">
                                     <a href="/classroom">Enter Classroom</a>
                                 </td>
                             <% } else if (i == timetable.length - 1) { %>
                                 <td class="tr-end-left ">
-                                    <i data-feather="disc"></i> <%= timetable[i].subject %>
+                                    <i data-feather="disc"></i> <%= timetable.periods[i].subject.name %>
                                 </td>
                                 <td>
-                                    <%= timetable[i].range %>
+                                    <%= timetable.periods[i].range %>
                                 </td>
                                 <td class="tr-end-right">
                                     <a href="/classroom">Enter Classroom</a>
                                 </td>
                             <% } else { %>
                                 <td class="">
-                                    <i data-feather="disc"></i> <%= timetable[i].subject %>
+                                    <i data-feather="disc"></i> <%= timetable.periods[i].subject.name %>
                                 </td>
                                 <td>
-                                    <%= timetable[i].range %>
+                                    <%= timetable.periods[i].range %>
                                 </td>
                                 <td>
                                     <a href="/classroom">Enter Classroom</a>

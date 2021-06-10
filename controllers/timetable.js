@@ -24,7 +24,7 @@ const RenderTimetable = async (req, res) => {
         const { class_id } = req.params;
         const tt = await t.FetchTimetable(class_id);
         if (tt) {
-            res.render('timetable', { timetable, pageTitle: `Elece - ${tt.class}` });
+            res.render('timetable', { timetable: tt, pageTitle: `Elece - ${tt.class}` });
         } else {
             res.render('404', { pageTitle: '404 not found'});
         }

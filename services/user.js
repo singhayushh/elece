@@ -90,7 +90,7 @@ const Verify = async (user_id) => {
 
 const FetchAll = async () => {
     try {
-        const users = await User.find();
+        const users = await User.find().populate({ path: 'defaultClass', select: 'name'});
         return { message: 'success', users };
     } catch (error) {
         return { message: 'error', error: error.message };
@@ -99,7 +99,7 @@ const FetchAll = async () => {
 
 const FetchAllByClass = async (defaultClass) => {
     try {
-        const users = await User.find({ defaultClass });
+        const users = await User.find({ defaultClass }).populate({ path: 'defaultClass', select: 'name'});
         return { message: 'success', users };
     } catch (error) {
         return { message: 'error', error: error.message };
@@ -109,7 +109,7 @@ const FetchAllByClass = async (defaultClass) => {
 const FetchUserByEmail = async (email) => {
     email = email.toLowerCase();
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email }).populate({ path: 'defaultClass', select: 'name'});
         return { message: 'success', user };
     } catch (error) {
         return { message: 'error', error: error.message };
@@ -128,7 +128,7 @@ const FetchAllByRole = async (role) => {
 
 const FetchUserByUsername = async (username) => {
     try {
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ username }).populate({ path: 'defaultClass', select: 'name'});
         return { message: 'success', user };
     } catch (error) {
         return { message: 'error', error: error.message };

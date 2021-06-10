@@ -34,19 +34,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <% if (!timetable[i].data.length) { %>
+                    <% if (!timetable[i].schedule.periods.length) { %>
                         <div class="row">--</div>
                     <% } else { %>
-                    <% for (var j = 0; j < timetable[i].data.length; j++) { %>
+                    <% for (var j = 0; j < timetable[i].schedule.periods.length; j++) { %>
                         <tr>
                             <td>
-                            <i data-feather="disc"></i> <%= timetable[i].data[j].subject %>
+                            <i data-feather="disc"></i> <%= timetable[i].schedule.periods[j].subject %>
                             </td>
                             <td>
-                            <%= timetable[i].data[j].range %>
+                            <%= timetable[i].schedule.periods[j].range %>
                             </td>
                             <td>
-                            <a href="https://meet.google.com/<%= timetable[i].data[j].link %>"><%= timetable[i].data[j].link %></a>
+                            <a href="https://meet.google.com/<%= timetable[i].schedule.periods[j].link %>"><%= timetable[i].schedule.periods[j].link %></a>
                             </td>
                         </tr>
                     <% }} %>

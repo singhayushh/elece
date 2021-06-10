@@ -27,10 +27,10 @@ const Delete = async (_id) => {
 const FetchTimetable = async (class_id) => {
     try {
         const result = await Timetable.findOne({ class: class_id }).populate({ path: 'class', select: 'name' }).populate({
-            path: 'schedule.subject',
+            path: 'schedule.periods.subject',
             select: 'name'
         }).populate({
-            path: 'schedule.teacher',
+            path: 'schedule.periods.teacher',
             select: 'name username picture'
         });
 
@@ -42,13 +42,7 @@ const FetchTimetable = async (class_id) => {
 
 const FetchAll = async () => {
     try {
-        return await Timetable.find().populate({ path: 'class', select: 'name' }).populate(result, {
-            path: 'schedule.subject',
-            select: 'name'
-        }).populate(result, {
-            path: 'schedule.teacher',
-            select: 'name username picture'
-        });
+        return await Timetable.find().populate({ path: 'class', select: 'name' });
     } catch (error) {
         throw error;
     }

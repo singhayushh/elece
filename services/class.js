@@ -10,7 +10,10 @@ const Create = async (classBody) => {
 
 const Edit = async (classBody) => {
     try {
-        return await Class.findOneAndUpdate({ name: classBody.name }, { subjects: classBody.subjects, teacher: classBody.teacher });
+        const _class = await Class.findOne({ name: classBody.name });
+        if (classBody.subjects) _class.subjects = classBody.subjects;
+        if (classBody.teacher) _class.teacher = classBody.teacher;
+        return await _class.save();
     } catch (error) {
         throw error;
     }

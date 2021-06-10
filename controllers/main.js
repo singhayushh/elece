@@ -57,8 +57,9 @@ const RenderHome = async(req, res) => {
 
     let data = [];
     if (tt && tt.schedule) {
-        data = tt.schedule.length > today ? tt.schedule[today].data : [];
+        data = tt.schedule.length > today ? tt.schedule[today] : [];
     }
+
     res.render('home', { timetable: data, pageTitle: 'Elece' });
 };
 
@@ -78,7 +79,7 @@ const RenderTT = async(req, res) => {
     const { defaultClass } = req.body.user;
     const tt = await FetchTimetable(defaultClass);
     ttschedule = tt ? tt.schedule : [];
-    res.render('timetable', { timetable: ttschedule, pageTitle: 'Elece - Timetable' });
+    res.render('timetable', { timetable: ttschedule.periods, pageTitle: 'Elece - Timetable' });
 };
 
 const RenderTeachers = async (_req, res) => {

@@ -1,5 +1,23 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+let period = new Schema({
+    range: {
+        type: String,
+        unique: false
+    },
+    room: {
+        type: String,
+        unique: true,
+    },
+    subject: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Subject'
+    },
+    teacher: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
+});
 
 let timetableSchema = new Schema(
     {
@@ -9,22 +27,7 @@ let timetableSchema = new Schema(
         },
         schedule: [
             {
-                range: {
-                    type: String,
-                    unique: false
-                },
-                room: {
-                    type: String,
-                    unique: true,
-                },
-                subject: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'Subject'
-                },
-                teacher: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'User'
-                }
+                periods: [period]
             }
         ],
     },
