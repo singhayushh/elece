@@ -56,15 +56,15 @@ const Join = async (req, res) => {
 
 const RenderClass = async (req, res) => {
     try {
-        if (req.body.user.defaultClass != result._id && req.body.user.role == 'student') {
-            res.redirect('/home');
-        }
         const { name } = req.params;
         const result = await c.FetchClass(name);
         const timetable = await t.FetchTimetable(result._id);
-        console.log(timetable);
+        if (req.body.user.defaultClass != result._id && req.body.user.role == 'student') {
+            res.redirect('/home');
+        }
         res.render('class', { _class: result, timetable: timetable.schedule, pageTitle: 'Elece - Classroom' });
     } catch (error) {
+	console.log(error);
         res.render('500');
     }
 };
