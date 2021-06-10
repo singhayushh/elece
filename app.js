@@ -34,14 +34,16 @@ app.set('view engine', 'ejs');
 const _class = require('./routes/class');
 const main = require('./routes/main');
 const notice = require('./routes/notice');
+const people = require('./routes/people');
+const profile = require('./routes/profile');
 const subject = require('./routes/subject');
 const timetable = require('./routes/timetable');
-const user = require('./routes/profile');
 
 app.use('/', main);
 app.use('/class', _class);
 app.use('/notice', notice);
-app.use('/profile', user);
+app.use('/people', people);
+app.use('/profile', profile);
 app.use('/subjects', subject);
 app.use('/timetable', timetable);
 

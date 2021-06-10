@@ -26,10 +26,10 @@ const Delete = async (_id) => {
 
 const FetchTimetable = async (class_id) => {
     try {
-        const result = await Timetable.findOne({ class: class_id }).populate({ path: 'class', select: 'name' }).populate(result, {
+        const result = await Timetable.findOne({ class: class_id }).populate({ path: 'class', select: 'name' }).populate({
             path: 'schedule.subject',
             select: 'name'
-        }).populate(result, {
+        }).populate({
             path: 'schedule.teacher',
             select: 'name username picture'
         });

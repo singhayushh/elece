@@ -7,9 +7,9 @@ const RenderPeople = async(_req, res) => {
 
 const RenderProfile = async(req, res) => {
     const { email } = req.body.user;
-    const user = await u.FetchUserByEmail(email);
-    if (user) {
-        res.render('profile', { user, pageTitle: `Elece | ${user.name}`, hideEdit: false });
+    const result = await u.FetchUserByEmail(email);
+    if (result.message == 'success') {
+        res.render('profile', { user: result.user, pageTitle: `Elece | ${result.user.name}`, hideEdit: false });
     } else {
         res.render('404', { pageTitle: 'Elece | 404' });
     }
@@ -19,7 +19,7 @@ const RenderEdit = async(req, res) => {
     const { email } = req.body.user;
     const user = await u.FetchUserByEmail(email);
     if (user) {
-        res.render('editProfile', { user, pageTitle: 'Elece - Edit Profile' });
+        res.render('profileEdit', { user, pageTitle: 'Elece - Edit Profile' });
     } else {
         res.render('404', { pageTitle: 'Elece | 404' });
     }
@@ -61,9 +61,10 @@ const Logout = async(req, res) => {
 };
 
 const Edit = async(req, res) => {
+    if (req.body.interests)
     req.body.interests = req.body.interests.split(',');
     const result = await u.Edit(req.body);
-    if (result == 'success') {
+    if (result.message == 'success') {
         res.redirect('/profile');
     } else {
         res.status(200).send('something went wrong');

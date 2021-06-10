@@ -25,9 +25,11 @@ let userSchema = new Schema(
             type: Date,
             default: null,
         },
-        interests: [{
-            type: String
-        }],
+        interests: [
+            {
+                type: String
+            },
+        ],
         bio: {
             type: String,
             default: '🎯 Focusing',

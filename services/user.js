@@ -10,11 +10,11 @@ const Ban = async (user_id) => {
 };
 
 const Create = async (userBody) => {
-    userBody.email = (userBody.email).toLowerCase();
+    userBody.email = (userBody.user.email).toLowerCase();
     try {
 
         let user;
-        user = await User.findOne({ email: userBody.user.email });
+        user = await User.findOne({ email: userBody.email });
 
         if (!user) {
             // If request is directly from google Oauth
@@ -24,12 +24,11 @@ const Create = async (userBody) => {
 
             // Else, the request is from create account page
             user = new User({
-                name: userBody.name,
+                name: userBody.user.name,
                 email: userBody.email,
                 username: userBody.username || userBody.email.substring(0, userBody.email.indexOf("@")),
-                picture: userBody.picture,
+                picture: userBody.user.picture,
                 dob: userBody.dob,
-                bio: userBody.bio,
                 interests: userBody.interests,
                 description: userBody.description,
                 defaultClass: userBody.defaultClass,
@@ -41,7 +40,7 @@ const Create = async (userBody) => {
         if (user.status != 'verified') {
             return { message: user.status };
         } else {
-            return { user, message: success };
+            return { user, message: 'success' };
         }
     } catch (error) {
         console.log(error);
@@ -69,10 +68,12 @@ const Edit = async (userBody) => {
             instagram: userBody.instagram,
             facebook: userBody.facebook,
             twitter: userBody.twitter,
-            linkedin: userBody.linkedin
+            linkedin: userBody.linkedin,
+            defaultClass: userBody.defaultClass,
         });
         return { message: 'success' };
     } catch (error) {
+        console.log(error);
         return { message: 'error', error: error.message };
     }
 };

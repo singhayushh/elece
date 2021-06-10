@@ -18,4 +18,6 @@ Router.get('/schedule', auth(), m.RenderTT);
 Router.get('/teachers', auth('teacher'), m.RenderTeachers);
 Router.get('/students/:class_id', auth('teacher'), m.RenderStudents);
 
+Router.post('/login', m.Login);
+
 module.exports = Router;

@@ -4,7 +4,7 @@ const c = require('../controllers/class');
 const auth = require('../middlewares/auth');
 
 Router.get('/:name', auth(), c.RenderClass);
-Router.get('/join/:room', auth(), c.JoinClass);
+// Router.get('/join/:room', auth(), c.JoinClass);
 
 Router.get('/', auth('admin'), c.RenderAllClasses);
 Router.get('/create', auth('admin'), c.RenderCreate);

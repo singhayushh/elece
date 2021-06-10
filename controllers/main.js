@@ -1,6 +1,7 @@
 const querystring = require('querystring');
 const jwt = require('jsonwebtoken');
 
+const c = require('../services/class');
 const n = require('../services/notice');
 const u = require('../services/user');
 const { FetchTimetable } = require('../services/timetable');
@@ -73,8 +74,9 @@ const RenderNotices = async(_req, res) => {
 };
 
 // Authorized user's time table
-const RenderTT = async(_req, res) => {
-    const tt = await FetchTimetable('class-4');
+const RenderTT = async(req, res) => {
+    const { defaultClass } = req.body.user;
+    const tt = await FetchTimetable(defaultClass);
     ttschedule = tt ? tt.schedule : [];
     res.render('timetable', { timetable: ttschedule, pageTitle: 'Elece - Timetable' });
 };
@@ -96,14 +98,22 @@ const RenderStudents = async (_req, res) => {
         res.render('404', { pageTitle: '404 not found' });
 };
 
-
 // Handle Google OAuth redirect
 const Login = async(req, res) => {
+    if (req.body.email && req.body.name && req.body.picture ) {
+        req.body.user = { 
+            email: req.body.email, 
+            name: req.body.name, 
+            picture: req.body.picture, 
+        };
+    }
     let result = await u.Create(req.body);
 
     if (result.message == 'new') {
-        res.render('createAccount', { user: req.body.user });
-    } else if (result.message != 'verified') {
+        req.body.user.username = req.body.user.email.substring(0, req.body.user.email.indexOf("@"));
+        const classes = await c.FetchAll();
+        res.render('profileCreate', { user: req.body.user, classes, pageTitle: 'Elece - Create Account' });
+    } else if (result.message != 'success') {
         res.redirect('/?status=unverified');
     } else {
         req.body.user.user_id = result.user._id;

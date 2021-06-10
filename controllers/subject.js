@@ -29,7 +29,7 @@ const RenderEdit = async (req, res) => {
 const Create = async (req, res) => {
     try {
         const result = await s.Create(req.body);
-        res.redirect(`/subjects`);
+        res.send(result);
     } catch (error) {
         res.render('500');
     }
