@@ -85,16 +85,16 @@ const RenderTT = async(req, res) => {
 const RenderTeachers = async (_req, res) => {
     const teachers = await u.FetchAllByRole('teacher');
     if (teachers.length)
-        res.render('people', { teachers, pageTitle: 'Elece - Teachers' });
+        res.render('teachers', { teachers, pageTitle: 'Elece - Teachers' });
     else 
         res.render('404', { pageTitle: '404 not found' });
 };
 
-const RenderStudents = async (_req, res) => {
+const RenderStudents = async (req, res) => {
     const { class_id } = req.params;
     const students = await u.FetchAllByClass(class_id);
-    if (students.length)
-        res.render('people', { students, pageTitle: 'Elece - Teachers' });
+    if (students.users.length)
+        res.render('students', { students: students.users, pageTitle: 'Elece - Teachers' });
     else 
         res.render('404', { pageTitle: '404 not found' });
 };

@@ -1,0 +1,133 @@
+<%- include('partials/header.ejs') %>
+
+<section>
+    <div class="container">
+        <h2>Students</h2>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th width="30%">
+                        Name
+                    </th>
+                    <th width="20%">
+                        Joined
+                    </th>
+                    <th width="20%">
+                        Class
+                    </th>
+                    <th width="30%">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (!students.length) { %>
+                    <div class="row"><strong>No students registered yet!</strong></div>
+                <% } %>
+                <% for (var i = 0; i < students.length; i++) { %>
+                    <tr>
+                        <% if (i == 0 && students[i].role == 'student') { %> 
+                            <td class="tr-start-left special">
+                                <div class="table-img">
+                                    <img src="<%= students[i].picture %>">
+                                </div>
+                                <a href="/profile/<%= students[i].username %>"><%= students[i].name %></a>
+                            </td>
+                            <td>
+                                <%= new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' }).format(students[i].createdAt) %>
+                            </td>
+                            <td>
+                                <a href="/class/<%= students[i].defaultClass.name %>"><%= students[i].defaultClass.name %></a>
+                            </td>
+                            <td class="tr-start-right actions">
+                                <% if (students[i].status == 'unverified') { %>
+                                    <a href="/people/verify/<%= students[i]._id %>" class="green-icon">
+                                        <i data-feather="check-circle"></i>
+                                    </a>
+                                <% } %>
+                                <% if (students[i].status != 'banned') { %>
+                                    <a href="/people/ban/<%= students[i]._id %>" class="yellow-icon">
+                                        <i data-feather="slash"></i>
+                                    </a>
+                                <% } else { %>
+                                    <a href="/people/ban/<%= students[i]._id %>" class="green-icon">
+                                        <i data-feather="refresh-cw"></i>
+                                    </a>
+                                <% } %>
+                                <a href="/people/delete/<%= students[i]._id %>" class="red-icon">
+                                    <i data-feather="trash"></i>
+                                </a>
+                            </td>
+                        <% } else if (i == students.length - 1 && students[i].role == 'student') { %>
+                            <td class="tr-end-left special">
+                                <div class="table-img">
+                                    <img src="<%= students[i].picture %>">
+                                </div>
+                                <a href="/profile/<%= students[i].username %>"><%= students[i].name %></a>
+                            </td>
+                            <td>
+                                <%= new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' }).format(students[i].createdAt) %>
+                            </td>
+                            <td>
+                                <a href="/class/<%= students[i].defaultClass.name %>"><%= students[i].defaultClass.name %></a>
+                            </td>
+                            <td class="tr-end-right actions">
+                                <% if (students[i].status == 'unverified') { %>
+                                    <a href="/people/verify/<%= students[i]._id %>" class="green-icon">
+                                        <i data-feather="check-circle"></i>
+                                    </a>
+                                <% } %>
+                                <% if (students[i].status != 'banned') { %>
+                                    <a href="/people/ban/<%= students[i]._id %>" class="yellow-icon">
+                                        <i data-feather="slash"></i>
+                                    </a>
+                                <% } else { %>
+                                    <a href="/people/ban/<%= students[i]._id %>" class="green-icon">
+                                        <i data-feather="refresh-cw"></i>
+                                    </a>
+                                <% } %>
+                                <a href="/people/delete/<%= students[i]._id %>" class="red-icon">
+                                    <i data-feather="trash"></i>
+                                </a>
+                            </td>
+                        <% } else if (students[i].role == 'student'){ %>
+                            <td class="special">
+                                <div class="table-img">
+                                    <img src="<%= students[i].picture %>">
+                                </div>
+                                <a href="/profile/<%= students[i].username %>"><%= students[i].name %></a>
+                            </td>
+                            <td>
+                                <%= new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' }).format(students[i].createdAt) %>
+                            </td>
+                            <td>
+                                <a href="/class/<%= students[i].defaultClass.name %>"><%= students[i].defaultClass.name %></a>
+                            </td>
+                            <td class="actions">
+                                <% if (students[i].status == 'unverified') { %>
+                                    <a href="/people/verify/<%= students[i]._id %>" class="green-icon">
+                                        <i data-feather="check-circle"></i>
+                                    </a>
+                                <% } %>
+                                <% if (students[i].status != 'banned') { %>
+                                    <a href="/people/ban/<%= students[i]._id %>" class="yellow-icon">
+                                        <i data-feather="slash"></i>
+                                    </a>
+                                <% } else { %>
+                                    <a href="/people/ban/<%= students[i]._id %>" class="green-icon">
+                                        <i data-feather="refresh-cw"></i>
+                                    </a>
+                                <% } %>
+                                <a href="/people/delete/<%= students[i]._id %>" class="red-icon">
+                                    <i data-feather="trash"></i>
+                                </a>
+                            </td>
+                        <% } %>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<%- include('partials/footer.ejs') %>
