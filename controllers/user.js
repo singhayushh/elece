@@ -43,7 +43,8 @@ const RenderUser = async(req, res) => {
 };
 
 const Verify = async (req, res) => {
-    let result = await u.Verify(req.body.user_id);
+    const { user_id } = req.params;
+    let result = await u.Verify(user_id);
     if (result.message == 'success') {
         res.redirect('/people');
     } else {
@@ -52,7 +53,8 @@ const Verify = async (req, res) => {
 };
 
 const Ban = async (req, res) => {
-    let result = await u.Ban(req.body.user_id);
+    const { user_id } = req.params;
+    let result = await u.Ban(user_id);
     if (result.message == 'success') {
         res.redirect('/people');
     } else {
